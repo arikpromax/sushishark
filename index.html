@@ -439,6 +439,7 @@ header.scrolled{border-bottom:1px solid rgba(242,236,223,.14);padding:10px 0}
 .closed-note{display:none;margin:0 0 14px;padding:15px 16px;border-radius:14px;background:rgba(241,67,43,.12);border:1px solid rgba(241,67,43,.34);color:var(--red);font-size:.85rem;font-weight:600;text-align:center;line-height:1.5}
 .closed-note b{display:block;font-size:1.02rem;font-weight:800;margin-bottom:4px}
 .closed-note.pre{background:rgba(255,138,92,.13);border-color:rgba(255,138,92,.38);color:var(--salmon)}
+.pay-radio.off{opacity:.38;pointer-events:none}
 #submitBtn.closed-off{opacity:.45!important;pointer-events:none!important}
 #submitBtn.disabled{opacity:.5;pointer-events:none}
 
@@ -894,7 +895,7 @@ footer{background:#0E0F12;color:var(--ink);border-top:var(--bd);padding:46px 0 3
           <div class="pay-list">
             <button type="button" class="pay-radio active" id="tAsap" onclick="setWhen('asap')"><span class="pr-dot"></span><span data-i18n="t_asap">Jak najszybciej</span></button>
             <button type="button" class="pay-radio" id="tAt" onclick="setWhen('at')"><span class="pr-dot"></span><span data-i18n="t_at">Na godzinę</span></button>
-            <div class="time-wrap" id="timeWrap" style="display:none"><input type="time" id="fTime" min="12:00" max="21:30" step="900"></div>
+            <div class="time-wrap" id="timeWrap" style="display:none"><input type="time" id="fTime" min="12:00" max="22:00" step="900"></div>
           </div>
         </div>
         <div class="field" id="personsField">
@@ -1175,7 +1176,7 @@ pl:{
   pay_cash:'Płatność gotówką', pay_term:'Płatność terminalem', change_ph:'Reszta z… np. 200 zł',
   f_notes:'Uwagi (opcjonalnie)', your_order:'Twoje zamówienie', total:'Razem', submit:'Zamawiam',
   or_ig:'lub napisz do nas:', cart_title:'Koszyk', cart_go:'Przejdź do zamówienia',
-  upsell:'Dodaj do zamówienia?', add_btn:'Dodaj', sp_title:'Wybierz sos', sp_skip:'Bez sosu', sp_ok:'Dodaj', sp_sub:'Do burgera <b>1 sos gratis</b>. Wybierz swój ulubiony:', sp_free:'Gratis', sp_none:'bez sosu', upsell_sos:'Dodaj sos?', sos_incl:'Sos sojowy, imbir, wasabi i pałeczki dodajemy gratis do każdego zamówienia.', cart_empty:'Koszyk jest pusty…\nDodaj coś pysznego z menu!', toast_added:'Dodano do koszyka', closed_t:'Teraz nie przyjmujemy zamówień', closed_msg:'Zamówienia online realizujemy codziennie w godzinach {a}–{b}.', closed_today:'Zapraszamy dziś od {x}!', closed_tomorrow:'Zapraszamy jutro od {x}!', closed_err:'Zamówienia przyjmujemy w godzinach {a}–{b}. Zapraszamy ponownie!', pre_t:'Zamówienie z wyprzedzeniem', pre_msg:'Zamówienie przyjmiemy już teraz, ale kuchnia startuje o {x} — od tej godziny zaczynamy realizację i dowóz.', promo_badge:'Zestaw miesiąca', sale_badge:'Promocja', out_badge:'Brak w sprzedaży', out_toast:'Produkt chwilowo niedostępny', dp_title:'Napoje gratis', dp_sub:'Do zestawu <b>2 napoje 0,33 l gratis</b>. Wybierz swoje:', dp_sub_n:'Napoje gratis do zestawu: <b>{n} × 0,33 l</b>. Wybierz swoje:', dp_drink:'Napój', dp_n1:'Napój 1', dp_n2:'Napój 2', dp_ok:'Dodaj',
+  upsell:'Dodaj do zamówienia?', add_btn:'Dodaj', sp_title:'Wybierz sos', sp_skip:'Bez sosu', sp_ok:'Dodaj', sp_sub:'Do burgera <b>1 sos gratis</b>. Wybierz swój ulubiony:', sp_free:'Gratis', sp_none:'bez sosu', upsell_sos:'Dodaj sos?', sos_incl:'Sos sojowy, imbir, wasabi i pałeczki dodajemy gratis do każdego zamówienia.', cart_empty:'Koszyk jest pusty…\nDodaj coś pysznego z menu!', toast_added:'Dodano do koszyka', closed_t:'Teraz nie przyjmujemy zamówień', closed_msg:'Zamówienia online realizujemy codziennie w godzinach {a}–{b}.', closed_today:'Zapraszamy dziś od {x}!', closed_tomorrow:'Zapraszamy jutro od {x}!', closed_err:'Zamówienia przyjmujemy w godzinach {a}–{b}. Zapraszamy ponownie!', pre_t:'Zamówienie z wyprzedzeniem', pre_msg:'Kuchnia startuje o {x} — dowóz i odbiór ruszają od tej godziny. Zamówienie przyjmiemy już teraz, wybierz tylko godzinę dostawy z przedziału {x}–{y}.', err_time_range:'Wybierz godzinę między {a} a {b} — wcześniej kuchnia jeszcze nie pracuje.', promo_badge:'Zestaw miesiąca', sale_badge:'Promocja', out_badge:'Brak w sprzedaży', out_toast:'Produkt chwilowo niedostępny', dp_title:'Napoje gratis', dp_sub:'Do zestawu <b>2 napoje 0,33 l gratis</b>. Wybierz swoje:', dp_sub_n:'Napoje gratis do zestawu: <b>{n} × 0,33 l</b>. Wybierz swoje:', dp_drink:'Napój', dp_n1:'Napój 1', dp_n2:'Napój 2', dp_ok:'Dodaj',
   err_cart:'Dodaj coś do koszyka!', err_min:'Minimalna kwota zamówienia to 70 zł. Dodaj jeszcze za {x} zł.', err_required:'Uzupełnij imię i telefon', err_addr:'Podaj ulicę i numer domu',
   ok_stamp:'Przyjęte ✓', ok_t:'Dziękujemy!', ok_d:'Twoje zamówienie zostało przyjęte. Zadzwonimy, aby potwierdzić szczegóły.', ok_b:'Super!',
   c_tag:'Kontakt', c_title:'Wpadnij lub zamów', c_addr:'Adres', c_hours:'Godziny otwarcia', c_hours_v:'Pn–Nd: 12:00–22:00', c_phone:'Telefon',
@@ -1212,7 +1213,7 @@ ua:{
   pay_cash:'Оплата готівкою', pay_term:'Оплата через термінал', change_ph:'Решта з… напр., 200 zł',
   f_notes:'Коментар (необовʼязково)', your_order:'Твоє замовлення', total:'Разом', submit:'Замовляю',
   or_ig:'або напиши нам:', cart_title:'Кошик', cart_go:'До оформлення',
-  upsell:'Додати до замовлення?', add_btn:'Додати', sp_title:'Обери соус', sp_skip:'Без соусу', sp_ok:'Додати', sp_sub:'До бургера <b>1 соус безкоштовно</b>. Обери свій улюблений:', sp_free:'Безкоштовно', sp_none:'без соусу', upsell_sos:'Додати соус?', sos_incl:'Соєвий соус, імбир, васабі та палички додаємо безкоштовно до кожного замовлення.', cart_empty:'Кошик порожній…\nДодай щось смачненьке з меню!', toast_added:'Додано до кошика', closed_t:'Зараз замовлення не приймаємо', closed_msg:'Онлайн-замовлення приймаємо щодня з {a} до {b}.', closed_today:'Чекаємо на вас сьогодні з {x}!', closed_tomorrow:'Чекаємо на вас завтра з {x}!', closed_err:'Замовлення приймаємо з {a} до {b}. Чекаємо на вас!', pre_t:'Попереднє замовлення', pre_msg:'Замовлення приймемо вже зараз, але кухня починає о {x} — саме з цієї години стартує приготування й доставка.', promo_badge:'Сет місяця', sale_badge:'Акція', out_badge:'Нема в наявності', out_toast:'Товар тимчасово недоступний', dp_title:'Напої безкоштовно', dp_sub:'До сету <b>2 напої 0,33 л безкоштовно</b>. Обери свої:', dp_sub_n:'Безкоштовні напої до сету: <b>{n} × 0,33 л</b>. Обери свої:', dp_drink:'Напій', dp_n1:'Напій 1', dp_n2:'Напій 2', dp_ok:'Додати',
+  upsell:'Додати до замовлення?', add_btn:'Додати', sp_title:'Обери соус', sp_skip:'Без соусу', sp_ok:'Додати', sp_sub:'До бургера <b>1 соус безкоштовно</b>. Обери свій улюблений:', sp_free:'Безкоштовно', sp_none:'без соусу', upsell_sos:'Додати соус?', sos_incl:'Соєвий соус, імбир, васабі та палички додаємо безкоштовно до кожного замовлення.', cart_empty:'Кошик порожній…\nДодай щось смачненьке з меню!', toast_added:'Додано до кошика', closed_t:'Зараз замовлення не приймаємо', closed_msg:'Онлайн-замовлення приймаємо щодня з {a} до {b}.', closed_today:'Чекаємо на вас сьогодні з {x}!', closed_tomorrow:'Чекаємо на вас завтра з {x}!', closed_err:'Замовлення приймаємо з {a} до {b}. Чекаємо на вас!', pre_t:'Попереднє замовлення', pre_msg:'Кухня починає о {x} — саме з цієї години стартує доставка й самовивіз. Замовлення приймемо вже зараз, лише оберіть годину доставки в проміжку {x}–{y}.', err_time_range:'Оберіть годину між {a} і {b} — раніше кухня ще не працює.', promo_badge:'Сет місяця', sale_badge:'Акція', out_badge:'Нема в наявності', out_toast:'Товар тимчасово недоступний', dp_title:'Напої безкоштовно', dp_sub:'До сету <b>2 напої 0,33 л безкоштовно</b>. Обери свої:', dp_sub_n:'Безкоштовні напої до сету: <b>{n} × 0,33 л</b>. Обери свої:', dp_drink:'Напій', dp_n1:'Напій 1', dp_n2:'Напій 2', dp_ok:'Додати',
   err_cart:'Додай щось до кошика!', err_min:'Мінімальна сума замовлення — 70 zł. Додай ще на {x} zł.', err_required:"Заповни ім'я та телефон", err_addr:'Вкажи вулицю і номер будинку',
   ok_stamp:'Прийнято ✓', ok_t:'Дякуємо!', ok_d:'Твоє замовлення прийнято. Ми зателефонуємо для підтвердження деталей.', ok_b:'Супер!',
   c_tag:'Контакти', c_title:'Завітай або замов', c_addr:'Адреса', c_hours:'Години роботи', c_hours_v:'Пн–Нд: 12:00–22:00', c_phone:'Телефон',
@@ -1250,7 +1251,7 @@ en:{
   pay_cash:'Pay in cash', pay_term:'Pay by card terminal', change_ph:'Change from… e.g. 200 zł',
   f_notes:'Notes (optional)', your_order:'Your order', total:'Total', submit:'Place order',
   or_ig:'or message us:', cart_title:'Cart', cart_go:'Go to checkout',
-  upsell:'Add to your order?', add_btn:'Add', sp_title:'Choose a sauce', sp_skip:'No sauce', sp_ok:'Add', sp_sub:'Your burger comes with <b>1 free sauce</b>. Pick your favourite:', sp_free:'Free', sp_none:'no sauce', upsell_sos:'Add a sauce?', sos_incl:'Soy sauce, ginger, wasabi and chopsticks come free with every order.', cart_empty:'Your cart is empty…\nAdd something tasty from the menu!', toast_added:'Added to cart', closed_t:'We are not taking orders right now', closed_msg:'Online orders are accepted daily from {a} to {b}.', closed_today:'Come back today from {x}!', closed_tomorrow:'Come back tomorrow from {x}!', closed_err:'We accept orders between {a} and {b}. See you soon!', pre_t:'Pre-order', pre_msg:'We will take your order now, but the kitchen opens at {x} — preparation and delivery start from that time.', promo_badge:'Set of the month', sale_badge:'Sale', out_badge:'Out of stock', out_toast:'Item currently unavailable', dp_title:'Free drinks', dp_sub:'Your set comes with <b>2 free 0.33 l drinks</b>. Pick yours:', dp_sub_n:'Free drinks with your set: <b>{n} × 0.33 l</b>. Pick yours:', dp_drink:'Drink', dp_n1:'Drink 1', dp_n2:'Drink 2', dp_ok:'Add',
+  upsell:'Add to your order?', add_btn:'Add', sp_title:'Choose a sauce', sp_skip:'No sauce', sp_ok:'Add', sp_sub:'Your burger comes with <b>1 free sauce</b>. Pick your favourite:', sp_free:'Free', sp_none:'no sauce', upsell_sos:'Add a sauce?', sos_incl:'Soy sauce, ginger, wasabi and chopsticks come free with every order.', cart_empty:'Your cart is empty…\nAdd something tasty from the menu!', toast_added:'Added to cart', closed_t:'We are not taking orders right now', closed_msg:'Online orders are accepted daily from {a} to {b}.', closed_today:'Come back today from {x}!', closed_tomorrow:'Come back tomorrow from {x}!', closed_err:'We accept orders between {a} and {b}. See you soon!', pre_t:'Pre-order', pre_msg:'The kitchen opens at {x} — delivery and pickup start from that time. We will take your order now, just pick a delivery time between {x} and {y}.', err_time_range:'Pick a time between {a} and {b} — the kitchen is not working earlier.', promo_badge:'Set of the month', sale_badge:'Sale', out_badge:'Out of stock', out_toast:'Item currently unavailable', dp_title:'Free drinks', dp_sub:'Your set comes with <b>2 free 0.33 l drinks</b>. Pick yours:', dp_sub_n:'Free drinks with your set: <b>{n} × 0.33 l</b>. Pick yours:', dp_drink:'Drink', dp_n1:'Drink 1', dp_n2:'Drink 2', dp_ok:'Add',
   err_cart:'Add something to the cart!', err_min:'Minimum order is 70 zł. Add {x} zł more.', err_required:'Fill in your name and phone', err_addr:'Enter street and house number',
   ok_stamp:'Accepted ✓', ok_t:'Thank you!', ok_d:'Your order has been received. We will call you to confirm the details.', ok_b:'Great!',
   c_tag:'Contact', c_title:'Visit us or order', c_addr:'Address', c_hours:'Opening hours', c_hours_v:'Mon–Sun: 12:00–22:00', c_phone:'Phone',
@@ -1404,17 +1405,19 @@ function warsawMinutes(){
 }
 function isOpenNow(){ const t = warsawMinutes(); return t >= OPEN_FROM && t < OPEN_TO; }
 function hm(mins){ return String(Math.floor(mins/60)).padStart(2,'0') + ':' + String(mins%60).padStart(2,'0'); }
+/* ostatni możliwy slot dostawy — bierzemy wprost z pola godziny, żeby tekst i kontrolka zawsze się zgadzały */
+function slotMax(){ const el = $('#fTime'); return (el && el.max) ? el.max : hm(OPEN_TO); }
 function applyOpenState(){
   const now = warsawMinutes(), open = isOpenNow(), note = $('#closedNote'), btn = $('#submitBtn'), t = T[lang];
   if(note){
     if(!open){
-      const back = (now < OPEN_FROM ? t.closed_today : t.closed_tomorrow).replace('{x}', hm(OPEN_FROM));
-      note.innerHTML = `<b>${t.closed_t}</b>${t.closed_msg.replace('{a}', hm(OPEN_FROM)).replace('{b}', hm(OPEN_TO))} ${back}`;
+      const back = (now < OPEN_FROM ? t.closed_today : t.closed_tomorrow).replace(/\{x\}/g, hm(OPEN_FROM));
+      note.innerHTML = `<b>${t.closed_t}</b>${t.closed_msg.replace(/\{a\}/g, hm(OPEN_FROM)).replace(/\{b\}/g, hm(OPEN_TO))} ${back}`;
       note.classList.remove('pre');
       note.style.display = 'block';
     } else if(now < KITCHEN_FROM){
       /* zamówienia przyjmujemy, ale kuchnia rusza dopiero o KITCHEN_FROM */
-      note.innerHTML = `<b>${t.pre_t}</b>${t.pre_msg.replace('{x}', hm(KITCHEN_FROM))}`;
+      note.innerHTML = `<b>${t.pre_t}</b>${t.pre_msg.replace(/\{x\}/g, hm(KITCHEN_FROM)).replace(/\{y\}/g, slotMax())}`;
       note.classList.add('pre');
       note.style.display = 'block';
     } else {
@@ -1423,6 +1426,13 @@ function applyOpenState(){
     }
   }
   if(btn) btn.classList.toggle('closed-off', !open);
+
+  /* w oknie 10:00–12:00 „jak najszybciej" jest niedostępne — zostaje wybór godziny */
+  const pre = open && now < KITCHEN_FROM, asapBtn = $('#tAsap');
+  if(asapBtn){
+    asapBtn.classList.toggle('off', pre);
+    if(pre && when === 'asap') setWhen('at');
+  }
 }
 setInterval(applyOpenState, 30000);
 
@@ -1906,6 +1916,8 @@ function toast(msg){
 
 /* ---------- delivery & payment ---------- */
 function setWhen(w){
+  /* przed startem kuchni „jak najszybciej" nie ma sensu — wymuszamy wybór godziny */
+  if(w === 'asap' && isOpenNow() && warsawMinutes() < KITCHEN_FROM) w = 'at';
   when = w;
   $('#tAsap').classList.toggle('active', w==='asap');
   $('#tAt').classList.toggle('active', w==='at');
@@ -1945,7 +1957,7 @@ function submitOrder(){
   /* poza godzinami 12:00–22:00 nie przyjmujemy zamówień */
   if(!isOpenNow()){
     applyOpenState();
-    err.textContent = T[lang].closed_err.replace('{a}', hm(OPEN_FROM)).replace('{b}', hm(OPEN_TO));
+    err.textContent = T[lang].closed_err.replace(/\{a\}/g, hm(OPEN_FROM)).replace(/\{b\}/g, hm(OPEN_TO));
     err.style.display = 'block';
     err.scrollIntoView({behavior:'smooth', block:'center'});
     return;
@@ -1981,7 +1993,16 @@ function submitOrder(){
   if(ONSITE && !name){ err.textContent = T[lang].err_required; err.style.display='block'; return; }
   if(!ONSITE && (!name || !phone)){ err.textContent = T[lang].err_required; err.style.display='block'; return; }
   if(!ONSITE && delivery==='delivery' && (!street || !house) && !isEvent){ err.textContent = T[lang].err_addr; err.style.display='block'; return; }
-  if(when==='at' && !$('#fTime').value){ err.textContent = T[lang].err_time; err.style.display='block'; return; }
+  if(when==='at'){
+    const v = $('#fTime').value;
+    if(!v){ err.textContent = T[lang].err_time; err.style.display='block'; err.scrollIntoView({behavior:'smooth', block:'center'}); return; }
+    const mins = parseHM(v), lo = parseHM($('#fTime').min), hi = parseHM($('#fTime').max);
+    if(mins != null && lo != null && hi != null && (mins < lo || mins > hi)){
+      err.textContent = T[lang].err_time_range.replace(/\{a\}/g, hm(lo)).replace(/\{b\}/g, hm(hi));
+      err.style.display = 'block'; err.scrollIntoView({behavior:'smooth', block:'center'});
+      return;
+    }
+  }
 
   const orderStr = Object.entries(cart).map(([key,q])=>{
     const p = findP(baseId(key));
