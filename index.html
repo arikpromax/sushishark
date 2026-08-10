@@ -1902,7 +1902,15 @@ function upsellHtml(){
   return out;
 }
 
+/* Menu przychodzi z bazy już po wyrenderowaniu strony. Jeśli gość zdążył dodać
+   coś, czego w bazie nie ma (np. pozycja skasowana w panelu), taki wpis znika
+   z koszyka — inaczej cały koszyk wysypywał się na nieistniejącej pozycji. */
+function pruneCart(){
+  Object.keys(cart).forEach(function(k){ if(!findP(baseId(k))) delete cart[k]; });
+}
+
 function renderCart(){
+  pruneCart();
   const cnt = cartCount(), total = cartTotal();
   $('#fabCnt').textContent = cnt;
   $('#fabTotal').textContent = zl(total);
@@ -2056,6 +2064,7 @@ function prefillEvent(){ $('#fNotes').value = T[lang].event_note; }
 function submitOrder(){
   const err = $('#formErr');
   err.style.display = 'none';
+  pruneCart();
 
   /* zamówienia przyjmujemy o każdej porze; poza godzinami kuchni wymagany jest slot — patrz niżej */
   applyOpenState();
