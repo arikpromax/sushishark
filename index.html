@@ -1673,7 +1673,12 @@ function dpOpen(id, btn){
   $('#dpTitle').textContent = ns && !nd ? t.dp_title_s : (ns ? t.dp_title_g : t.dp_title);
   $('#dpSub').innerHTML = (t.dp_sub_n || 'Do zestawu <b>{n}</b> gratis. Wybierz:').replace('{n}', nd + ns);
 
-  const sauces = PRODUCTS.filter(function(x){ return x.cat === 'sosy'; });
+  /* co proponujemy: listy z panelu, a dla napojów bez listy — trzy tanie,
+     żeby gratis nie wypadł nagle na kombuchę za 15 zł */
+  const sauces = sauceOptions(p);
+  const drinks = (p.drinkList && String(p.drinkList).trim())
+    ? drinkOptions(p).map(function(d){ return d.name; })
+    : FREE_DRINKS;
   const opt = function(kind, slot, name, extra){
     return `<button type="button" class="sp-opt" onclick="dpSelect('${kind}',${slot},'${name.replace(/'/g,"\\'")}',this)">
       <span class="dot"></span>
@@ -1684,7 +1689,7 @@ function dpOpen(id, btn){
   let html = '';
   for(let i = 0; i < nd; i++){
     html += `<p class="dp-lbl">${(t.dp_drink || 'Napój')} ${i + 1}</p><div class="sp-list">` +
-            FREE_DRINKS.map(function(d){ return opt('d', i, d); }).join('') + '</div>';
+            drinks.map(function(d){ return opt('d', i, d); }).join('') + '</div>';
   }
   for(let i = 0; i < ns; i++){
     html += `<p class="dp-lbl">${(t.dp_sauce || 'Sos')} ${i + 1}</p><div class="sp-list">` +
@@ -1944,6 +1949,15 @@ function priceInner(p, extra, withSmall){
 /* dopłata za napój — ustawiana per pozycja w panelu; 0 = opcji nie ma */
 function drinkPriceOf(p){ const n = p && p.drinkPrice; return n > 0 ? n : 0; }
 function canDrink(p){ return drinkPriceOf(p) > 0; }
+/* Które sosy proponować przy gratisach. Pusto = wszystkie z działu „Sosy". */
+function sauceOptions(p){
+  const all = PRODUCTS.filter(function(s){ return s.cat === 'sosy'; });
+  const raw = (p && p.sauceList) ? String(p.sauceList) : '';
+  if(!raw.trim()) return all;
+  const want = raw.split(/[\n,;]+/).map(function(s){ return s.trim().toLowerCase(); }).filter(Boolean);
+  const picked = all.filter(function(s){ return want.indexOf(String(s.name).trim().toLowerCase()) !== -1; });
+  return picked.length ? picked : all;
+}
 /* Które napoje proponować. Panel: pusto = wszystkie z działu „Napoje",
    albo lista nazw (każda z nowej linii lub po przecinku). Nietrafione
    nazwy pomijamy, a gdyby nie pasowała żadna — pokazujemy wszystkie,
@@ -2630,6 +2644,7 @@ applyOnsiteMode();
           if(x.day_to)    it.dayTo    = String(x.day_to).trim();
           if(x.drink_price) it.drinkPrice = parseInt(x.drink_price, 10) || 0;
           if(x.drink_list)  it.drinkList  = String(x.drink_list);
+          if(x.sauce_list)  it.sauceList  = String(x.sauce_list);
           if(x.sale_price) it.salePrice = parseFloat(String(x.sale_price).replace(',','.')) || 0;
           if(x.neu) it.neu = 1;
           if(p.image_url) it.up = 1; /* завантажене через адмінку фото — вже обрізане квадратом */
