@@ -2130,6 +2130,8 @@ function adRefresh(){
     return s + (f ? f.price : 0);
   }, 0);
   $('#adOk').textContent = T[lang].ad_ok + (sum ? ` (+${sum} zł)` : '');
+  /* nic nie zaznaczono — od tego jest przycisk „bez dodatków" obok */
+  $('#adOk').disabled = adSel.length === 0;
 }
 function adClose(){
   $('#adVeil').classList.remove('open');
