@@ -599,8 +599,9 @@ footer{background:#0E0F12;color:var(--ink);border-top:var(--bd);padding:46px 0 3
 .sp-opt.sel .dot::after{content:'';position:absolute;inset:3px;background:var(--red);border-radius:50%}
 .sp-opt .nm{font-size:.92rem;font-weight:600;flex:1}
 .sp-opt .fl{font-size:.82rem;letter-spacing:-1px}
+.sp-opt .vol{font-size:.78rem;font-weight:500;color:var(--muted);margin-left:5px}
 .sp-opt .free{font-size:.74rem;font-weight:700;color:#0E8F5C;text-transform:uppercase;letter-spacing:.04em}
-.sp-actions{display:flex;gap:10px}
+.sp-actions{display:flex;gap:10px;position:sticky;bottom:-20px;background:var(--white);padding:12px 0 20px;margin-bottom:-20px;z-index:2} /* przy długiej liście przyciski zawsze widać */
 .sp-skip{flex:none;background:transparent;border:1.5px solid rgba(242,236,223,.18);color:var(--muted);border-radius:100px;padding:13px 18px;font-size:.88rem;font-weight:600;cursor:pointer;transition:.14s}
 .sp-skip:hover{color:var(--ink);border-color:rgba(242,236,223,.35)}
 .sp-ok{flex:1;background:var(--red);color:#fff;border:none;border-radius:100px;padding:13px 20px;font-family:'Sofia Sans Condensed';font-weight:800;font-size:1.02rem;text-transform:uppercase;letter-spacing:.03em;cursor:pointer;transition:.14s}
@@ -1226,7 +1227,7 @@ pl:{
   pay_cash:'Płatność gotówką', pay_term:'Płatność terminalem', change_ph:'Reszta z… np. 200 zł',
   f_notes:'Uwagi (opcjonalnie)', your_order:'Twoje zamówienie', total:'Razem', submit:'Zamawiam',
   or_ig:'lub napisz do nas:', cart_title:'Koszyk', cart_go:'Przejdź do zamówienia',
-  upsell:'Dodaj do zamówienia?', add_btn:'Dodaj', sp_title:'Wybierz sos', sp_skip:'Bez sosu', sp_ok:'Dodaj', sp_sub:'Do burgera <b>1 sos gratis</b>. Wybierz swój ulubiony:', sp_free:'Gratis', sp_none:'bez sosu', upsell_sos:'Dodaj sos?', sos_incl:'Sos sojowy, imbir, wasabi i pałeczki dodajemy gratis do każdego zamówienia.', cart_empty:'Koszyk jest pusty…\nDodaj coś pysznego z menu!', toast_added:'Dodano do koszyka', closed_t:'Teraz nie przyjmujemy zamówień', closed_msg:'Zamówienia online realizujemy codziennie w godzinach {a}–{b}.', closed_today:'Zapraszamy dziś od {x}!', closed_tomorrow:'Zapraszamy jutro od {x}!', closed_err:'Zamówienia przyjmujemy w godzinach {a}–{b}. Zapraszamy ponownie!', pre_t:'Zamówienie z wyprzedzeniem', pre_msg:'Kuchnia startuje o {x} — dowóz i odbiór ruszają od tej godziny. Zamówienie przyjmiemy już teraz, wybierz tylko godzinę dostawy z przedziału {x}–{y}.', pre_msg_tmr:'Kuchnia jest już zamknięta — zamówienie przyjmiemy na jutro. Wybierz tylko godzinę dostawy z przedziału {x}–{y}.', err_time_range:'Wybierz godzinę między {a} a {b} — wcześniej kuchnia jeszcze nie pracuje.', tube_add:'W tubusie +{x} zł', drink_add:'Z napojem +{x} zł', drink_with:'Napój: {d}', pd_title:'Wybierz napój', pd_sub:'Do tej pozycji dobierzemy napój za dopłatą <b>{x} zł</b>:', pd_none:'Bez napoju',sauce_add:'Z sosem +{x} zł',sauce_with:'Sos: {d}',ps_title:'Wybierz sos',ps_sub:'Do tej pozycji dobierzemy sos za dopłatą <b>{x} zł</b>:',ps_none:'Bez sosu', pd_ok:'Dodaj', tube_short:'· w tubusie',  promo_badge:'Hit miesiąca', sale_badge:'Promocja', new_badge:'Nowość', out_badge:'Brak w sprzedaży', out_toast:'Produkt chwilowo niedostępny', dp_title:'Napoje gratis', dp_sub:'Do zestawu <b>2 napoje 0,33 l gratis</b>. Wybierz swoje:', dp_sub_d:'Napoje gratis: <b>{n} × 0,33 l</b>.', dp_sub_s:'Sosy gratis: <b>{n}</b>.', dp_sub_pick:'Wybierz swoje:', dp_drink:'Napój', dp_sauce:'Sos', ad_title:'Dodatki', ad_sub:'Chcesz coś dorzucić? Dopłata doliczy się do ceny:', ad_none:'Bez dodatków', ad_ok:'Dodaj', dp_title_s:'Sosy gratis', dp_title_g:'Gratis do zamówienia', dp_n1:'Napój 1', dp_n2:'Napój 2', dp_ok:'Dodaj',
+  upsell:'Dodaj do zamówienia?', add_btn:'Dodaj', sp_title:'Wybierz sos', sp_skip:'Bez sosu', sp_ok:'Dodaj', sp_sub:'Do burgera <b>1 sos gratis</b>. Wybierz swój ulubiony:', sp_free:'Gratis', sp_none:'bez sosu', upsell_sos:'Dodaj sos?', sos_incl:'Sos sojowy, imbir, wasabi i pałeczki dodajemy gratis do każdego zamówienia.', cart_empty:'Koszyk jest pusty…\nDodaj coś pysznego z menu!', toast_added:'Dodano do koszyka', closed_t:'Teraz nie przyjmujemy zamówień', closed_msg:'Zamówienia online realizujemy codziennie w godzinach {a}–{b}.', closed_today:'Zapraszamy dziś od {x}!', closed_tomorrow:'Zapraszamy jutro od {x}!', closed_err:'Zamówienia przyjmujemy w godzinach {a}–{b}. Zapraszamy ponownie!', pre_t:'Zamówienie z wyprzedzeniem', pre_msg:'Kuchnia startuje o {x} — dowóz i odbiór ruszają od tej godziny. Zamówienie przyjmiemy już teraz, wybierz tylko godzinę dostawy z przedziału {x}–{y}.', pre_msg_tmr:'Kuchnia jest już zamknięta — zamówienie przyjmiemy na jutro. Wybierz tylko godzinę dostawy z przedziału {x}–{y}.', err_time_range:'Wybierz godzinę między {a} a {b} — wcześniej kuchnia jeszcze nie pracuje.', tube_add:'W tubusie +{x} zł', drink_add:'Z napojem +{x} zł', drink_with:'Napój: {d}', pd_title:'Dodaj napój', pd_sub:'Chcesz napój do tej pozycji? Dopłata <b>{x} zł</b>:', pd_none:'Bez napoju',sauce_add:'Z sosem +{x} zł',sauce_with:'Sos: {d}',ps_title:'Dodaj sos',ps_sub:'Chcesz sos do tej pozycji? Dopłata <b>{x} zł</b>:',ps_none:'Bez sosu', pd_ok:'Dodaj', tube_short:'· w tubusie',  promo_badge:'Hit miesiąca', sale_badge:'Promocja', new_badge:'Nowość', out_badge:'Brak w sprzedaży', out_toast:'Produkt chwilowo niedostępny', dp_title:'Napoje gratis', dp_sub:'Do zestawu <b>2 napoje 0,33 l gratis</b>. Wybierz swoje:', dp_sub_d:'Napoje gratis: <b>{n} × 0,33 l</b>.', dp_sub_s:'Sosy gratis: <b>{n}</b>.', dp_sub_pick:'Wybierz swoje:', dp_drink:'Napój', dp_sauce:'Sos', ad_title:'Dodatki', ad_sub:'Chcesz coś dorzucić? Dopłata doliczy się do ceny:', ad_none:'Bez dodatków', ad_ok:'Dodaj', dp_title_s:'Sosy gratis', dp_title_g:'Gratis do zamówienia', dp_n1:'Napój 1', dp_n2:'Napój 2', dp_ok:'Dodaj',
   err_cart:'Dodaj coś do koszyka!', err_min:'Minimalna kwota zamówienia to 70 zł. Dodaj jeszcze za {x} zł.', err_required:'Uzupełnij imię i telefon', err_addr:'Podaj ulicę i numer domu', err_city:'Wpisz miejscowość', c_other:'Inna miejscowość', ph_city:'Miejscowość',
   ok_stamp:'Przyjęte ✓', ok_t:'Dziękujemy!', ok_d:'Twoje zamówienie zostało przyjęte. Zadzwonimy, aby potwierdzić szczegóły.', ok_b:'Super!',
   c_tag:'Kontakt', c_title:'Wpadnij lub zamów', c_addr:'Adres', c_hours:'Godziny otwarcia', c_hours_d:'Pn–Nd', c_hours_v:'Pn–Nd: 11:00–21:00', c_phone:'Telefon',
@@ -1263,7 +1264,7 @@ ua:{
   pay_cash:'Оплата готівкою', pay_term:'Оплата через термінал', change_ph:'Решта з… напр., 200 zł',
   f_notes:'Коментар (необовʼязково)', your_order:'Твоє замовлення', total:'Разом', submit:'Замовляю',
   or_ig:'або напиши нам:', cart_title:'Кошик', cart_go:'До оформлення',
-  upsell:'Додати до замовлення?', add_btn:'Додати', sp_title:'Обери соус', sp_skip:'Без соусу', sp_ok:'Додати', sp_sub:'До бургера <b>1 соус безкоштовно</b>. Обери свій улюблений:', sp_free:'Безкоштовно', sp_none:'без соусу', upsell_sos:'Додати соус?', sos_incl:'Соєвий соус, імбир, васабі та палички додаємо безкоштовно до кожного замовлення.', cart_empty:'Кошик порожній…\nДодай щось смачненьке з меню!', toast_added:'Додано до кошика', closed_t:'Зараз замовлення не приймаємо', closed_msg:'Онлайн-замовлення приймаємо щодня з {a} до {b}.', closed_today:'Чекаємо на вас сьогодні з {x}!', closed_tomorrow:'Чекаємо на вас завтра з {x}!', closed_err:'Замовлення приймаємо з {a} до {b}. Чекаємо на вас!', pre_t:'Попереднє замовлення', pre_msg:'Кухня починає о {x} — саме з цієї години стартує доставка й самовивіз. Замовлення приймемо вже зараз, лише оберіть годину доставки в проміжку {x}–{y}.', pre_msg_tmr:'Кухня вже зачинена — замовлення приймемо на завтра. Лише оберіть годину доставки в проміжку {x}–{y}.', err_time_range:'Оберіть годину між {a} і {b} — раніше кухня ще не працює.', tube_add:'У тубусі +{x} zł', drink_add:'З напоєм +{x} zł', drink_with:'Напій: {d}', pd_title:'Обери напій', pd_sub:'До цієї позиції можна додати напій за <b>{x} zł</b>:', pd_none:'Без напою',sauce_add:'З соусом +{x} zł',sauce_with:'Соус: {d}',ps_title:'Обери соус',ps_sub:'До цієї позиції можна додати соус за <b>{x} zł</b>:',ps_none:'Без соусу', pd_ok:'Додати', tube_short:'· у тубусі',  promo_badge:'Хіт місяця', sale_badge:'Акція', new_badge:'Новинка', out_badge:'Нема в наявності', out_toast:'Товар тимчасово недоступний', dp_title:'Напої безкоштовно', dp_sub:'До сету <b>2 напої 0,33 л безкоштовно</b>. Обери свої:', dp_sub_d:'Напої безкоштовно: <b>{n} × 0,33 л</b>.', dp_sub_s:'Соуси безкоштовно: <b>{n}</b>.', dp_sub_pick:'Обери свої:', dp_drink:'Напій', dp_sauce:'Соус', ad_title:'Додатки', ad_sub:'Хочеш щось додати? Доплата піде до ціни:', ad_none:'Без додатків', ad_ok:'Додати', dp_title_s:'Соуси безкоштовно', dp_title_g:'Безкоштовно до замовлення', dp_n1:'Напій 1', dp_n2:'Напій 2', dp_ok:'Додати',
+  upsell:'Додати до замовлення?', add_btn:'Додати', sp_title:'Обери соус', sp_skip:'Без соусу', sp_ok:'Додати', sp_sub:'До бургера <b>1 соус безкоштовно</b>. Обери свій улюблений:', sp_free:'Безкоштовно', sp_none:'без соусу', upsell_sos:'Додати соус?', sos_incl:'Соєвий соус, імбир, васабі та палички додаємо безкоштовно до кожного замовлення.', cart_empty:'Кошик порожній…\nДодай щось смачненьке з меню!', toast_added:'Додано до кошика', closed_t:'Зараз замовлення не приймаємо', closed_msg:'Онлайн-замовлення приймаємо щодня з {a} до {b}.', closed_today:'Чекаємо на вас сьогодні з {x}!', closed_tomorrow:'Чекаємо на вас завтра з {x}!', closed_err:'Замовлення приймаємо з {a} до {b}. Чекаємо на вас!', pre_t:'Попереднє замовлення', pre_msg:'Кухня починає о {x} — саме з цієї години стартує доставка й самовивіз. Замовлення приймемо вже зараз, лише оберіть годину доставки в проміжку {x}–{y}.', pre_msg_tmr:'Кухня вже зачинена — замовлення приймемо на завтра. Лише оберіть годину доставки в проміжку {x}–{y}.', err_time_range:'Оберіть годину між {a} і {b} — раніше кухня ще не працює.', tube_add:'У тубусі +{x} zł', drink_add:'З напоєм +{x} zł', drink_with:'Напій: {d}', pd_title:'Додати напій', pd_sub:'Хочеш напій до цієї позиції? Доплата <b>{x} zł</b>:', pd_none:'Без напою',sauce_add:'З соусом +{x} zł',sauce_with:'Соус: {d}',ps_title:'Додати соус',ps_sub:'Хочеш соус до цієї позиції? Доплата <b>{x} zł</b>:',ps_none:'Без соусу', pd_ok:'Додати', tube_short:'· у тубусі',  promo_badge:'Хіт місяця', sale_badge:'Акція', new_badge:'Новинка', out_badge:'Нема в наявності', out_toast:'Товар тимчасово недоступний', dp_title:'Напої безкоштовно', dp_sub:'До сету <b>2 напої 0,33 л безкоштовно</b>. Обери свої:', dp_sub_d:'Напої безкоштовно: <b>{n} × 0,33 л</b>.', dp_sub_s:'Соуси безкоштовно: <b>{n}</b>.', dp_sub_pick:'Обери свої:', dp_drink:'Напій', dp_sauce:'Соус', ad_title:'Додатки', ad_sub:'Хочеш щось додати? Доплата піде до ціни:', ad_none:'Без додатків', ad_ok:'Додати', dp_title_s:'Соуси безкоштовно', dp_title_g:'Безкоштовно до замовлення', dp_n1:'Напій 1', dp_n2:'Напій 2', dp_ok:'Додати',
   err_cart:'Додай щось до кошика!', err_min:'Мінімальна сума замовлення — 70 zł. Додай ще на {x} zł.', err_required:"Заповни ім'я та телефон", err_addr:'Вкажи вулицю і номер будинку', err_city:'Вкажи місто', c_other:'Інше місто', ph_city:'Місто',
   ok_stamp:'Прийнято ✓', ok_t:'Дякуємо!', ok_d:'Твоє замовлення прийнято. Ми зателефонуємо для підтвердження деталей.', ok_b:'Супер!',
   c_tag:'Контакти', c_title:'Завітай або замов', c_addr:'Адреса', c_hours:'Години роботи', c_hours_d:'Пн–Нд', c_hours_v:'Пн–Нд: 11:00–21:00', c_phone:'Телефон',
@@ -1301,7 +1302,7 @@ en:{
   pay_cash:'Pay in cash', pay_term:'Pay by card terminal', change_ph:'Change from… e.g. 200 zł',
   f_notes:'Notes (optional)', your_order:'Your order', total:'Total', submit:'Place order',
   or_ig:'or message us:', cart_title:'Cart', cart_go:'Go to checkout',
-  upsell:'Add to your order?', add_btn:'Add', sp_title:'Choose a sauce', sp_skip:'No sauce', sp_ok:'Add', sp_sub:'Your burger comes with <b>1 free sauce</b>. Pick your favourite:', sp_free:'Free', sp_none:'no sauce', upsell_sos:'Add a sauce?', sos_incl:'Soy sauce, ginger, wasabi and chopsticks come free with every order.', cart_empty:'Your cart is empty…\nAdd something tasty from the menu!', toast_added:'Added to cart', closed_t:'We are not taking orders right now', closed_msg:'Online orders are accepted daily from {a} to {b}.', closed_today:'Come back today from {x}!', closed_tomorrow:'Come back tomorrow from {x}!', closed_err:'We accept orders between {a} and {b}. See you soon!', pre_t:'Pre-order', pre_msg:'The kitchen opens at {x} — delivery and pickup start from that time. We will take your order now, just pick a delivery time between {x} and {y}.', pre_msg_tmr:'The kitchen is already closed — we will take your order for tomorrow. Just pick a delivery time between {x} and {y}.', err_time_range:'Pick a time between {a} and {b} — the kitchen is not working earlier.', tube_add:'In a tube +{x} zł', drink_add:'With a drink +{x} zł', drink_with:'Drink: {d}', pd_title:'Choose a drink', pd_sub:'You can add a drink to this item for <b>{x} zł</b>:', pd_none:'No drink',sauce_add:'With a sauce +{x} zł',sauce_with:'Sauce: {d}',ps_title:'Choose a sauce',ps_sub:'You can add a sauce to this item for <b>{x} zł</b>:',ps_none:'No sauce', pd_ok:'Add', tube_short:'· in a tube',  promo_badge:'Hit of the month', sale_badge:'Sale', new_badge:'New', out_badge:'Out of stock', out_toast:'Item currently unavailable', dp_title:'Free drinks', dp_sub:'Your set comes with <b>2 free 0.33 l drinks</b>. Pick yours:', dp_sub_d:'Free drinks: <b>{n} × 0.33 l</b>.', dp_sub_s:'Free sauces: <b>{n}</b>.', dp_sub_pick:'Pick yours:', dp_drink:'Drink', dp_sauce:'Sauce', ad_title:'Extras', ad_sub:'Want to add something? The surcharge goes on top:', ad_none:'No extras', ad_ok:'Add', dp_title_s:'Free sauces', dp_title_g:'Free with your order', dp_n1:'Drink 1', dp_n2:'Drink 2', dp_ok:'Add',
+  upsell:'Add to your order?', add_btn:'Add', sp_title:'Choose a sauce', sp_skip:'No sauce', sp_ok:'Add', sp_sub:'Your burger comes with <b>1 free sauce</b>. Pick your favourite:', sp_free:'Free', sp_none:'no sauce', upsell_sos:'Add a sauce?', sos_incl:'Soy sauce, ginger, wasabi and chopsticks come free with every order.', cart_empty:'Your cart is empty…\nAdd something tasty from the menu!', toast_added:'Added to cart', closed_t:'We are not taking orders right now', closed_msg:'Online orders are accepted daily from {a} to {b}.', closed_today:'Come back today from {x}!', closed_tomorrow:'Come back tomorrow from {x}!', closed_err:'We accept orders between {a} and {b}. See you soon!', pre_t:'Pre-order', pre_msg:'The kitchen opens at {x} — delivery and pickup start from that time. We will take your order now, just pick a delivery time between {x} and {y}.', pre_msg_tmr:'The kitchen is already closed — we will take your order for tomorrow. Just pick a delivery time between {x} and {y}.', err_time_range:'Pick a time between {a} and {b} — the kitchen is not working earlier.', tube_add:'In a tube +{x} zł', drink_add:'With a drink +{x} zł', drink_with:'Drink: {d}', pd_title:'Add a drink', pd_sub:'Want a drink with this item? Extra <b>{x} zł</b>:', pd_none:'No drink',sauce_add:'With a sauce +{x} zł',sauce_with:'Sauce: {d}',ps_title:'Add a sauce',ps_sub:'Want a sauce with this item? Extra <b>{x} zł</b>:',ps_none:'No sauce', pd_ok:'Add', tube_short:'· in a tube',  promo_badge:'Hit of the month', sale_badge:'Sale', new_badge:'New', out_badge:'Out of stock', out_toast:'Item currently unavailable', dp_title:'Free drinks', dp_sub:'Your set comes with <b>2 free 0.33 l drinks</b>. Pick yours:', dp_sub_d:'Free drinks: <b>{n} × 0.33 l</b>.', dp_sub_s:'Free sauces: <b>{n}</b>.', dp_sub_pick:'Pick yours:', dp_drink:'Drink', dp_sauce:'Sauce', ad_title:'Extras', ad_sub:'Want to add something? The surcharge goes on top:', ad_none:'No extras', ad_ok:'Add', dp_title_s:'Free sauces', dp_title_g:'Free with your order', dp_n1:'Drink 1', dp_n2:'Drink 2', dp_ok:'Add',
   err_cart:'Add something to the cart!', err_min:'Minimum order is 70 zł. Add {x} zł more.', err_required:'Fill in your name and phone', err_addr:'Enter street and house number', err_city:'Enter the town', c_other:'Other town', ph_city:'Town',
   ok_stamp:'Accepted ✓', ok_t:'Thank you!', ok_d:'Your order has been received. We will call you to confirm the details.', ok_b:'Great!',
   c_tag:'Contact', c_title:'Visit us or order', c_addr:'Address', c_hours:'Opening hours', c_hours_d:'Mon–Sun', c_hours_v:'Mon–Sun: 11:00–21:00', c_phone:'Phone',
@@ -1653,7 +1654,6 @@ function spConfirm(skip){
 /* Gratisy do pozycji: napoje i sosy. Klucz koszyka trzyma je osobno —
    napoje bez znacznika ('p97__Fanta + Sprite'), sosy ze znacznikiem 's:'. */
 let dpTarget = null, dpBtn = null;
-const FREE_DRINKS = ['Coca-Cola Zero','Fanta','Sprite'];
 /* Ile gratisów daje pozycja. Liczbę ustawia się w panelu przy daniu;
    puste pole = zero. Zaznaczenie „Promo" na to nie wpływa. */
 function drinkCount(p){ return p ? (parseInt(p.drinks, 10) || 0) : 0; }
@@ -1684,12 +1684,9 @@ function dpOpen(id, btn){
   if(ns) sub.push(t.dp_sub_s.replace('{n}', ns));
   $('#dpSub').innerHTML = sub.join(' ') + ' ' + t.dp_sub_pick;
 
-  /* co proponujemy: listy z panelu, a dla napojów bez listy — trzy tanie,
-     żeby gratis nie wypadł nagle na kombuchę za 15 zł */
-  const sauces = sauceOptions(p);
-  const drinks = (p.drinkList && String(p.drinkList).trim())
-    ? drinkOptions(p).map(function(d){ return d.name; })
-    : FREE_DRINKS;
+  /* co proponujemy: własne listy gratisów z panelu (osobne od list za dopłatą) */
+  const sauces = giftSauceOptions(p);
+  const drinks = giftDrinkOptions(p).map(function(d){ return d.name; });
   const opt = function(kind, slot, name, extra){
     return `<button type="button" class="sp-opt" onclick="dpSelect('${kind}',${slot},'${name.replace(/'/g,"\\'")}',this)">
       <span class="dot"></span>
@@ -1747,9 +1744,7 @@ function openDish(id){
   $('#dmName').textContent = p.name;
   $('#dmDesc').textContent = p[lang];
   $('#dmTube').innerHTML =
-      (canTube(p) ? tubeChip('dm-tube', !!tubePick[p.id], `toggleTubePick('${p.id}',this,event)`) : '') +
-      (canDrink(p) ? drinkChip('dm-tube', !!drinkPick[p.id], `toggleDrinkPick('${p.id}',this,event)`, p) : '') +
-      (canPaidSauce(p) ? sauceChip('dm-tube', !!saucePick[p.id], `toggleSaucePick('${p.id}',this,event)`, p) : '');
+      (canTube(p) ? tubeChip('dm-tube', !!tubePick[p.id], `toggleTubePick('${p.id}',this,event)`) : '');
   $('#dmPrice').innerHTML = priceInner(p, pickExtra(p), false);
   $('#dmAdd').textContent = T[lang].add_btn || 'Dodaj';
   $('#dmVeil').classList.add('open');
@@ -1856,8 +1851,6 @@ function renderMenu(){
         <h3>${p.name}</h3>
         <p class="desc">${p[lang]}</p>
         ${canTube(p) ? tubeChip('dish-tube', !!tubePick[p.id], `toggleTubePick('${p.id}',this,event)`) : ''}
-        ${canDrink(p) ? drinkChip('dish-tube', !!drinkPick[p.id], `toggleDrinkPick('${p.id}',this,event)`, p) : ''}
-        ${canPaidSauce(p) ? sauceChip('dish-tube', !!saucePick[p.id], `toggleSaucePick('${p.id}',this,event)`, p) : ''}
         <div class="dish-row">
           <span class="price${salePrice(p)?" on-sale":""}">${priceInner(p, pickExtra(p), true)}</span>
           <button class="add-btn" onclick="event.stopPropagation();addToCart('${p.id}', this)" aria-label="Dodaj"${p.out?' disabled':''}><i class="ic"><svg class="fi" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></i></button>
@@ -1902,9 +1895,9 @@ function flowNext(){
   if(isBurger(p) && !d.sp){ spOpen(id, btn); return; }
   // безкоштовні напої / соуси: питаємо, які саме
   if(drinkCount(p) + sauceCount(p) > 0 && !d.dp){ dpOpen(id, btn); return; }
-  /* zaznaczono „z napojem" / „z sosem" za dopłatą — pytamy, jaki */
-  if(canDrink(p) && drinkPick[id] && !d.pd){ pdOpen(id, btn, null, 'd'); return; }
-  if(canPaidSauce(p) && saucePick[id] && !d.ps){ pdOpen(id, btn, null, 's'); return; }
+  /* napój / sos za dopłatą — proponujemy w okienku, gość może odmówić */
+  if(canDrink(p) && !d.pd){ pdOpen(id, btn, null, 'd'); return; }
+  if(canPaidSauce(p) && !d.ps){ pdOpen(id, btn, null, 's'); return; }
   flow = null;
   /* jeśli w menu zaznaczono „w tubusie", trafia do koszyka jako osobny wariant */
   const key = makeKey(id, {
@@ -2045,27 +2038,23 @@ function canDrink(p){ return drinkPriceOf(p) > 0; }
 /* to samo dla sosu za dopłatą; działa razem z sosami gratis */
 function saucePriceOf(p){ const n = p && p.saucePrice; return n > 0 ? n : 0; }
 function canPaidSauce(p){ return saucePriceOf(p) > 0; }
-/* Które sosy proponować przy gratisach. Pusto = wszystkie z działu „Sosy". */
-function sauceOptions(p){
-  const all = PRODUCTS.filter(function(s){ return s.cat === 'sosy'; });
-  const raw = (p && p.sauceList) ? String(p.sauceList) : '';
-  if(!raw.trim()) return all;
-  const want = raw.split(/[\n,;]+/).map(function(s){ return s.trim().toLowerCase(); }).filter(Boolean);
-  const picked = all.filter(function(s){ return want.indexOf(String(s.name).trim().toLowerCase()) !== -1; });
-  return picked.length ? picked : all;
-}
-/* Które napoje proponować. Panel: pusto = wszystkie z działu „Napoje",
-   albo lista nazw (każda z nowej linii lub po przecinku). Nietrafione
-   nazwy pomijamy, a gdyby nie pasowała żadna — pokazujemy wszystkie,
-   żeby gość nigdy nie zobaczył pustego okna. */
-function drinkOptions(p){
-  const all = PRODUCTS.filter(function(d){ return d.cat === 'drinks' && isVisibleNow(d); });
-  const raw = (p && p.drinkList) ? String(p.drinkList) : '';
+/* Co proponować z działu (napoje / sosy). Panel: lista nazw (każda z nowej
+   linii lub po przecinku), pusto = cały dział. Nietrafione nazwy pomijamy,
+   a gdyby nie pasowała żadna — pokazujemy wszystkie, żeby gość nigdy nie
+   zobaczył pustego okna. */
+function pickFrom(cat, raw){
+  const all = PRODUCTS.filter(function(d){ return d.cat === cat && isVisibleNow(d); });
+  raw = raw ? String(raw) : '';
   if(!raw.trim()) return all;
   const want = raw.split(/[\n,;]+/).map(function(s){ return s.trim().toLowerCase(); }).filter(Boolean);
   const picked = all.filter(function(d){ return want.indexOf(String(d.name).trim().toLowerCase()) !== -1; });
   return picked.length ? picked : all;
 }
+/* gratisy i dopłaty mają w panelu osobne listy, żeby się nie mieszały */
+function giftDrinkOptions(p){ return pickFrom('drinks', p && p.freeDrinkList); }
+function giftSauceOptions(p){ return pickFrom('sosy',   p && p.freeSauceList); }
+function drinkOptions(p){     return pickFrom('drinks', p && p.drinkList); }
+function sauceOptions(p){     return pickFrom('sosy',   p && p.sauceList); }
 /* przy włączonej opcji pokazujemy zdjęcie tubusa zamiast zdjęcia rolki */
 /* Zdjęcie tubusa: z panelu (TUBE_PHOTO), a bez niego — wbudowane.
    W panelu można też w ogóle wyłączyć podmianę zdjęcia (TUBE_SWAP = false). */
@@ -2079,12 +2068,6 @@ function tubeChip(cls, on, handler, label){
   const txt = label != null ? label : T[lang].tube_add.replace(/\{x\}/g, TUBE_PRICE);
   return `<button type="button" class="tube-chip ${cls}${on?' on':''}" onclick="${handler}"><span class="tick">${on?'✓':''}</span>${txt}</button>`;
 }
-function drinkChip(cls, on, handler, p){
-  return tubeChip(cls, on, handler, T[lang].drink_add.replace(/\{x\}/g, drinkPriceOf(p)));
-}
-function sauceChip(cls, on, handler, p){
-  return tubeChip(cls, on, handler, T[lang].sauce_add.replace(/\{x\}/g, saucePriceOf(p)));
-}
 /* zaznaczenie zrobione w menu / oknie dania — pamiętane do momentu dodania do koszyka */
 const tubePick = {};
 function toggleTubePick(id, el, ev){
@@ -2096,36 +2079,12 @@ function toggleTubePick(id, el, ev){
   }
   refreshPickUI(id, el);
 }
-/* druga opcja pozycji: napój za dopłatą. Sam napój wybieramy przy dodawaniu. */
-const drinkPick = {};
-function toggleDrinkPick(id, el, ev){
-  if(ev) ev.stopPropagation();
-  drinkPick[id] = !drinkPick[id];
-  if(el){
-    el.classList.toggle('on', !!drinkPick[id]);
-    const t = el.querySelector('.tick'); if(t) t.textContent = drinkPick[id] ? '✓' : '';
-  }
-  refreshPickUI(id, el);
-}
-/* trzecia opcja: sos za dopłatą. Sam sos wybieramy przy dodawaniu. */
-const saucePick = {};
-function toggleSaucePick(id, el, ev){
-  if(ev) ev.stopPropagation();
-  saucePick[id] = !saucePick[id];
-  if(el){
-    el.classList.toggle('on', !!saucePick[id]);
-    const t = el.querySelector('.tick'); if(t) t.textContent = saucePick[id] ? '✓' : '';
-  }
-  refreshPickUI(id, el);
-}
-/* suma dopłat za zaznaczone opcje (tubus, napój, sos) */
+/* dopłata za zaznaczony tubus. Napój i sos za dopłatą nie mają galeczek —
+   proponuje je okienko po kliknięciu «+», jak dodatki. */
 function pickExtra(p){
-  const id = p.id;
-  return (canTube(p) && tubePick[id] ? TUBE_PRICE : 0)
-       + (canDrink(p) && drinkPick[id] ? drinkPriceOf(p) : 0)
-       + (canPaidSauce(p) && saucePick[id] ? saucePriceOf(p) : 0);
+  return canTube(p) && tubePick[p.id] ? TUBE_PRICE : 0;
 }
-/* cena kafelka i okna dania z uwzględnieniem wszystkich zaznaczeń */
+/* cena kafelka i okna dania z uwzględnieniem zaznaczeń */
 function refreshPickUI(id, el){
   const p = findP(id);
   if(!p) return;
@@ -2206,31 +2165,35 @@ function adConfirm(skip){
 }
 
 /* ---------- wybór napoju / sosu za dopłatą ----------
-   Jedno okno na oba przypadki: kind 'd' — napój, 's' — sos.
-   Otwiera się przy dodawaniu pozycji z zaznaczoną opcją oraz przy kliknięciu
-   w chip w koszyku (wtedy można wybór zmienić albo usunąć). */
+   Jedno okno na oba przypadki: kind 'd' — napój, 's' — sos. Wygląda jak okno
+   dodatków: lista z dopłatą przy każdej pozycji, «Bez napoju» i «Dodaj».
+   Otwiera się po kliknięciu «+» przy pozycji, która ma taką opcję, oraz przy
+   kliknięciu w chip w koszyku (wtedy można wybór zmienić albo usunąć). */
 let pdTarget = null, pdBtn = null, pdKey = null, pdPick = null, pdKind = 'd';
+function pdPrice(){ const p = findP(pdTarget); return pdKind === 's' ? saucePriceOf(p) : drinkPriceOf(p); }
+function pdOkLabel(){ $('#pdOk').textContent = T[lang].pd_ok + (pdPick ? ` (+${pdPrice()} zł)` : ''); }
 function pdOpen(id, btn, key, kind){
   const s = kind === 's', p = findP(id);
   if(!p || !(s ? canPaidSauce(p) : canDrink(p))) return;
   pdTarget = id; pdBtn = btn || null; pdKey = key || null; pdKind = s ? 's' : 'd';
   pdPick = key ? (s ? paidSauceOf(key) : drinkOf(key)) : null;
-  const t = T[lang];
+  const t = T[lang], price = pdPrice();
   $('#pdTitle').textContent = s ? t.ps_title : t.pd_title;
-  $('#pdSub').innerHTML = (s ? t.ps_sub : t.pd_sub).replace(/\{x\}/g, s ? saucePriceOf(p) : drinkPriceOf(p));
+  $('#pdSub').innerHTML = (s ? t.ps_sub : t.pd_sub).replace(/\{x\}/g, price);
   $('#pdNone').textContent = s ? t.ps_none : t.pd_none;
-  $('#pdOk').textContent = t.pd_ok;
   const opts = s ? sauceOptions(p) : drinkOptions(p);
   $('#pdList').innerHTML = opts.map(function(d){
     const on = pdPick === d.name;
     const fl = s && d.spicy ? ` <span class="fl">${'🌶'.repeat(d.spicy)}</span>` : '';
+    const vol = !s && d.vol ? `<span class="vol">${d.vol}</span>` : '';
     return `<button type="button" class="sp-opt${on?' sel':''}" onclick="pdSelect('${d.name.replace(/'/g,"\\'")}', this)">
-      <span class="dot"></span><span class="nm">${d.name}${fl}</span>
-      ${!s && d.vol ? `<span class="free">${d.vol}</span>` : ''}
+      <span class="dot"></span><span class="nm">${d.name}${fl}${vol}</span>
+      <span class="free">+${price} zł</span>
     </button>`;
   }).join('');
   $('#pdOk').disabled = !pdPick;
-  $('#pdNone').style.display = pdKey ? '' : 'none';   /* «bez napoju» ma sens tylko przy edycji */
+  pdOkLabel();
+  $('#pdNone').style.display = '';
   $('#pdVeil').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -2239,6 +2202,7 @@ function pdSelect(name, el){
   $('#pdList').querySelectorAll('.sp-opt').forEach(function(o){ o.classList.remove('sel'); });
   el.classList.add('sel');
   $('#pdOk').disabled = false;
+  pdOkLabel();
 }
 function pdClose(){
   $('#pdVeil').classList.remove('open');
@@ -2813,8 +2777,10 @@ applyOnsiteMode();
           if(x.day_from)  it.dayFrom  = String(x.day_from).trim();
           if(x.day_to)    it.dayTo    = String(x.day_to).trim();
           if(x.drink_price) it.drinkPrice = parseInt(x.drink_price, 10) || 0;
-          if(x.drink_list)  it.drinkList  = String(x.drink_list);
+          if(x.drink_list)  it.drinkList  = String(x.drink_list);       /* za dopłatą */
           if(x.sauce_list)  it.sauceList  = String(x.sauce_list);
+          if(x.free_drink_list) it.freeDrinkList = String(x.free_drink_list);   /* gratis */
+          if(x.free_sauce_list) it.freeSauceList = String(x.free_sauce_list);
           if(x.sauce_price) it.saucePrice = parseInt(x.sauce_price, 10) || 0;
           if(x.addons)      it.addons     = String(x.addons);
           /* tubus: tylko gdy panel coś o nim mówi — inaczej zostaje zapasowa lista */
@@ -2834,9 +2800,10 @@ applyOnsiteMode();
       var st = (by.settings || [])[0];
       var xs = (st && st.extra) || {};
 
-      /* --- tubus i napoje gratis z panelu ---
-         Karta «Tubus i darmowe napoje» w zakładce «Menu» (kolekcja menuset).
-         Dopóki jej nie ma — stare pola z karty «Tryb pracy» (settings). */
+      /* --- tubus z panelu ---
+         Karta «Tubus» w zakładce «Menu» (kolekcja menuset).
+         Dopóki jej nie ma — stare pola z karty «Tryb pracy» (settings).
+         Napoje gratis nie są już wspólne — każde danie ma własną listę. */
       try{
         var ms = (by.menuset || [])[0] || null;
         var mx = ms ? (ms.extra || {}) : xs;
@@ -2845,9 +2812,6 @@ applyOnsiteMode();
         TUBE_SWAP = mx.tube_swap !== false;           /* brak wartości = podmiana włączona */
         var tp = parseInt(mx.tube_price, 10);
         if(ms && !isNaN(tp) && tp >= 0){ TUBE_PRICE = tp; TUBE_PRICE_PANEL = true; }
-        var fd = String(mx.free_drinks || '').split(/[\n,;]+/)
-                   .map(function(s){ return s.trim(); }).filter(Boolean);
-        if(fd.length){ FREE_DRINKS.length = 0; Array.prototype.push.apply(FREE_DRINKS, fd); }
         setLang(lang);                                 /* nowa dopłata w etykietach «W tubusie +X zł» */
       }catch(e){}
 
