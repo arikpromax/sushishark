@@ -1930,6 +1930,7 @@ const findP = id => PRODUCTS.find(x=>x.id===id);
    Opcja dostępna tylko dla wybranych rolek. Kody pozycji są stałe (pole „img" w panelu),
    więc zmiana nazwy w adminie niczego tu nie psuje. Kolejność jak w menu: */
 let TUBE_PRICE = 7;
+let TUBE_PRICE_PANEL = false;   /* true — dopłata przyszła z karty w zakładce «Menu» i ma pierwszeństwo */
 const TUBE_KEY = 'tuba';
 const TUBE_IDS = [
   'p7',   /* Rolka z krewetkami pańko */
@@ -2739,8 +2740,9 @@ applyOnsiteMode();
     /* суми та підписи */
     var n = parseInt(X.min_order, 10);
     if(!isNaN(n) && n >= 0) MIN_ORDER = n;
+    /* stary tekst — tylko gdy karta w zakładce «Menu» nie podała dopłaty */
     n = parseInt(X.tube_price, 10);
-    if(!isNaN(n) && n >= 0) TUBE_PRICE = n;
+    if(!isNaN(n) && n >= 0 && !TUBE_PRICE_PANEL) TUBE_PRICE = n;
     if(X.delivery_time){ ['pl','ua','en'].forEach(function(j){ T[j].c2_v = X.delivery_time; }); }
 
     try{ setLang(lang); }catch(e){}
@@ -2751,7 +2753,7 @@ applyOnsiteMode();
     .catch(function(){ /* тексти не критичні — на сайті вже стоять вбудовані */ });
 
   fetch(DB_URL + '/items?site_id=eq.' + SITE_ID +
-        '&collection=in.(menu,cats,settings)&order=sort_order&select=id,collection,title,price,image_url,extra',
+        '&collection=in.(menu,cats,settings,menuset)&order=sort_order&select=id,collection,title,price,image_url,extra',
         { headers: { apikey: DB_KEY } })
     .then(function(r){ if(!r.ok) throw 0; return r.json(); })
     .then(function(rows){
@@ -2832,13 +2834,21 @@ applyOnsiteMode();
       var st = (by.settings || [])[0];
       var xs = (st && st.extra) || {};
 
-      /* --- tubus i napoje gratis z panelu --- */
+      /* --- tubus i napoje gratis z panelu ---
+         Karta «Tubus i darmowe napoje» w zakładce «Menu» (kolekcja menuset).
+         Dopóki jej nie ma — stare pola z karty «Tryb pracy» (settings). */
       try{
-        if(typeof xs.tube_photo === 'string') TUBE_PHOTO = xs.tube_photo.trim();
-        TUBE_SWAP = xs.tube_swap !== false;           /* brak wartości = podmiana włączona */
-        var fd = String(xs.free_drinks || '').split(/[\n,;]+/)
+        var ms = (by.menuset || [])[0] || null;
+        var mx = ms ? (ms.extra || {}) : xs;
+        var photo = ms ? ms.image_url : xs.tube_photo;
+        if(typeof photo === 'string') TUBE_PHOTO = photo.trim();
+        TUBE_SWAP = mx.tube_swap !== false;           /* brak wartości = podmiana włączona */
+        var tp = parseInt(mx.tube_price, 10);
+        if(ms && !isNaN(tp) && tp >= 0){ TUBE_PRICE = tp; TUBE_PRICE_PANEL = true; }
+        var fd = String(mx.free_drinks || '').split(/[\n,;]+/)
                    .map(function(s){ return s.trim(); }).filter(Boolean);
         if(fd.length){ FREE_DRINKS.length = 0; Array.prototype.push.apply(FREE_DRINKS, fd); }
+        setLang(lang);                                 /* nowa dopłata w etykietach «W tubusie +X zł» */
       }catch(e){}
 
       /* --- години роботи кухні з адмінки (якщо задані) --- */
