@@ -255,6 +255,13 @@ header.scrolled{border-bottom:1px solid rgba(242,236,223,.14);padding:10px 0}
 .tab.active{background:var(--red);color:#fff}
 .tab:not(.active):hover{transform:translateY(-1px);box-shadow:none}
 .menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:18px;align-items:stretch}
+/* zaślepki kart, dopóki menu nie przyjdzie z bazy */
+.dish.sk{pointer-events:none}
+.dish.sk .dish-img{background:rgba(242,236,223,.06)}
+.sk-line{display:block;height:12px;border-radius:6px;background:rgba(242,236,223,.08);margin:4px 0}
+.sk-line.w60{width:60%}.sk-line.w40{width:40%;height:22px;margin-top:22px}
+.dish.sk .dish-img,.sk-line{animation:skPulse 1.2s ease-in-out infinite}
+@keyframes skPulse{50%{opacity:.45}}
 .dish{position:relative;
   background:var(--white);border:var(--bd);border-radius:var(--r);overflow:hidden;
   transition:.18s;display:flex;flex-direction:column;box-shadow:var(--shadow-sm);
@@ -1921,8 +1928,19 @@ document.addEventListener('keydown', e=>{
     if(e.key==='ArrowRight') galNav(1);
   }
 });
+/* Menu z bazy przychodzi chwilę po otwarciu strony. Do tego czasu pokazujemy
+   zaślepki zamiast wbudowanego menu — inaczej gość widzi stare zdjęcia i ceny,
+   które po sekundzie się podmieniają. Wbudowane menu to zapas, gdy baza milczy. */
+let MENU_READY = false;
+function menuReady(){ if(MENU_READY) return; MENU_READY = true; try{ buildTabs(); renderMenu(); }catch(e){} }
+setTimeout(menuReady, 6000);
 function renderMenu(){
   const grid = $('#menuGrid');
+  if(!MENU_READY){
+    grid.className = 'menu-grid';
+    grid.innerHTML = new Array(8).fill('<div class="dish sk"><div class="dish-img"></div><div class="dish-body"><span class="sk-line"></span><span class="sk-line w60"></span><span class="sk-line w40"></span></div></div>').join('');
+    return;
+  }
   const q = searchQ.trim().toLowerCase();
   const list = PRODUCTS.filter(p =>
     isVisibleNow(p) &&
@@ -2907,8 +2925,10 @@ applyOnsiteMode();
 
         PRODUCTS.length = 0;
         Array.prototype.push.apply(PRODUCTS, fresh);
+        MENU_READY = true;
         try{ buildTabs(); renderMenu(); renderCart(); visSig = null; refreshVisibility(); }catch(e){}
       }
+      menuReady();   /* baza odpowiedziała bez menu — zostaje wbudowane */
 
       /* --- вимикач «Сьогодні вихідний» --- */
       var st = (by.settings || [])[0];
@@ -2967,7 +2987,7 @@ applyOnsiteMode();
         document.body.style.overflow = 'hidden';
       }
     })
-    .catch(function(){ /* офлайн чи збій — вбудоване меню вже на екрані */ });
+    .catch(function(){ menuReady(); /* офлайн чи збій — показуємо вбудоване меню */ });
 })();
 </script>
 </body>
