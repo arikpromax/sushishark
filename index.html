@@ -1820,7 +1820,7 @@ function algText(p){
 function algLine(p){
   if(!p || p.cat === 'drinks') return '';
   const t = algText(p);
-  return `<b>${T[lang].alg_label}:</b> ${t || T[lang].alg_ask} · <a onclick="algOpen()">${T[lang].alg_table}</a>`;
+  return `<b>${T[lang].alg_label}:</b> ${t || T[lang].alg_ask} · <a onclick="algOpen('${p.id}')">${T[lang].alg_table}</a>`;
 }
 /* na karcie w menu: sam przycisk «Alergeny» */
 function cardAlg(p){
