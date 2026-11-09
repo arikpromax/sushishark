@@ -2848,7 +2848,7 @@ applyOnsiteMode();
     .catch(function(){ /* тексти не критичні — на сайті вже стоять вбудовані */ });
 
   fetch(DB_URL + '/items?site_id=eq.' + SITE_ID +
-        '&collection=in.(menu,cats,settings,menuset)&order=sort_order&select=id,collection,title,price,image_url,extra',
+        '&collection=in.(menu,cats,settings,menuset,alg)&order=sort_order&select=id,collection,title,price,image_url,extra',
         { headers: { apikey: DB_KEY } })
     .then(function(r){ if(!r.ok) throw 0; return r.json(); })
     .then(function(rows){
@@ -2929,6 +2929,26 @@ applyOnsiteMode();
         try{ buildTabs(); renderMenu(); renderCart(); visSig = null; refreshVisibility(); }catch(e){}
       }
       menuReady();   /* baza odpowiedziała bez menu — zostaje wbudowane */
+
+      /* --- lista alergenów z panelu (zakładka «Алергени»): kolejność, nazwy PL/UA/EN.
+             Właściciel może dopisać nowy — wtedy pojawia się i tu. Bez listy — wbudowane 14. */
+      try{
+        var al = by.alg || [];
+        if(al.length){
+          ALG_KEYS.length = 0;
+          ['pl','ua','en'].forEach(function(l){ ALG_NAME[l].length = 0; });
+          al.forEach(function(a){
+            var x = a.extra || {};
+            var ua = String(a.title || '').trim();
+            var pl = String(x.pl || ua).trim();
+            var en = String(x.en || pl).trim();
+            ALG_KEYS.push(String(x.code || ('a' + a.id)));
+            ALG_NAME.pl.push(pl.toLowerCase());
+            ALG_NAME.ua.push(ua.toLowerCase());
+            ALG_NAME.en.push(en.toLowerCase());
+          });
+        }
+      }catch(e){}
 
       /* --- вимикач «Сьогодні вихідний» --- */
       var st = (by.settings || [])[0];
