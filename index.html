@@ -263,6 +263,14 @@ header.scrolled{border-bottom:1px solid rgba(242,236,223,.14);padding:10px 0}
 .pre-strip button{flex:none;background:var(--red);color:#fff;border:none;border-radius:100px;padding:9px 16px;
   font-family:'Sofia Sans Condensed';font-weight:800;font-size:.95rem;text-transform:uppercase;letter-spacing:.03em;cursor:pointer}
 .pre-strip button.ghost{background:transparent;border:1.5px solid rgba(242,236,223,.25);color:var(--ink)}
+/* ręka wskazująca przycisk + pulsowanie, żeby gość go nie przeoczył */
+.pre-go{display:inline-flex;align-items:center;gap:8px;flex:none}
+.pre-hand{width:30px;height:30px;fill:none;stroke:var(--ink);stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;
+  transform:rotate(90deg);animation:preHand 1.1s ease-in-out infinite}
+@keyframes preHand{0%,100%{transform:rotate(90deg) translateY(0)}50%{transform:rotate(90deg) translateY(-7px)}}
+.pre-strip button.go{animation:prePulse 1.8s ease-out infinite}
+@keyframes prePulse{0%{box-shadow:0 0 0 0 rgba(241,67,43,.55)}70%{box-shadow:0 0 0 12px rgba(241,67,43,0)}100%{box-shadow:0 0 0 0 rgba(241,67,43,0)}}
+@media (prefers-reduced-motion:reduce){.pre-hand,.pre-strip button.go{animation:none}}
 .pre-block{border-color:var(--salmon);background:rgba(255,140,105,.08)}
 .pre-slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(66px,1fr));gap:6px}
 .pre-slot{padding:10px 0;border-radius:10px;border:1.5px solid rgba(242,236,223,.14);background:var(--paper);
@@ -1972,7 +1980,8 @@ function preUI(){
       ps.innerHTML = `<span>${preFill(t.pre_mode)}</span><button type="button" class="ghost" onclick="preExit()">${t.pre_exit}</button>`;
     } else if(preOpen() && !ONSITE){
       ps.style.display = '';
-      ps.innerHTML = `<span>${preFill(t.pre_strip)}</span><button type="button" onclick="preEnter()">${preFill(t.pre_btn)}</button>`;
+      /* ręka «klikaj tutaj» wskazuje na przycisk */
+      ps.innerHTML = `<span>${preFill(t.pre_strip)}</span><span class="pre-go"><svg class="pre-hand" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-4 0"/><path d="M14 10V9a2 2 0 0 0-4 0v1"/><path d="M10 9.5V4a2 2 0 0 0-4 0v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-6-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><button type="button" class="go" onclick="preEnter()">${preFill(t.pre_btn)}</button></span>`;
     } else ps.style.display = 'none';
   }
   const pf = $('#preField');
