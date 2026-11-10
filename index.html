@@ -318,6 +318,17 @@ header.scrolled{border-bottom:1px solid rgba(242,236,223,.14);padding:10px 0}
 }
 .dish-flag{position:absolute;top:10px;right:10px;display:flex;align-items:center;gap:3px;background:var(--white);border:var(--bd);border-radius:100px;padding:4px 8px}
 .dish-flag{font-size:.92rem;letter-spacing:-1px}
+/* lajki: serduszko z liczbą (od 1), prawy dolny róg zdjęcia */
+.like-btn{position:absolute;bottom:10px;right:10px;z-index:2;display:inline-flex;align-items:center;gap:5px;
+  padding:5px 10px;border:var(--bd);border-radius:100px;background:var(--paper);color:var(--ink);
+  font-size:.78rem;font-weight:800;cursor:pointer;line-height:1;transition:transform .12s}
+.like-btn:hover{transform:scale(1.06)}
+.like-btn svg{width:17px;height:17px;display:block;fill:none;stroke:currentColor;stroke-width:2.1;stroke-linejoin:round}
+.like-btn.on{color:var(--red)}
+.like-btn.on svg{fill:var(--red);stroke:var(--red);animation:lkPop .32s ease-out}
+.like-btn.inline{position:static;flex:none}
+@keyframes lkPop{0%{transform:scale(.6)}60%{transform:scale(1.25)}100%{transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){.like-btn.on svg{animation:none}}
 .dish-body{padding:14px 15px 15px;display:flex;flex-direction:column;gap:5px;flex:1}
 .dish h3{font-family:'Sofia Sans Condensed';font-weight:800;font-size:1.12rem;text-transform:uppercase;line-height:1.1;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;height:2.2em}
 .dish .desc{color:var(--muted);font-size:.8rem;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;transition:.15s;height:2.9em}
@@ -651,7 +662,7 @@ footer{background:#0E0F12;color:var(--ink);border-top:var(--bd);padding:46px 0 3
 .dm{background:var(--white);border:var(--bd);border-radius:20px;max-width:400px;width:100%;max-height:88vh;overflow-y:auto;transform:scale(.94);transition:.24s;box-shadow:0 24px 70px rgba(0,0,0,.55);position:relative}
 .dm-veil.open .dm{transform:scale(1)}
 .dm-close{position:absolute;top:12px;right:12px;z-index:3;width:34px;height:34px;border-radius:50%;background:rgba(20,21,25,.72);color:var(--ink);display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;font-size:1.1rem;line-height:1}
-.dm-img{width:100%;aspect-ratio:1/1;background:#fff;border-radius:20px 20px 0 0;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.dm-img{position:relative;width:100%;aspect-ratio:1/1;background:#fff;border-radius:20px 20px 0 0;overflow:hidden;display:flex;align-items:center;justify-content:center}
 .dm-img img{width:100%;height:100%;object-fit:contain;padding:14px}
 .dm-img.cover img{object-fit:cover;padding:0}
 .dm-body{padding:18px 20px 22px}
@@ -1152,7 +1163,7 @@ footer{background:#0E0F12;color:var(--ink);border-top:var(--bd);padding:46px 0 3
 <div class="dm-veil" id="dmVeil" onclick="if(event.target===this)closeDish()">
   <div class="dm">
     <button class="dm-close" onclick="closeDish()" aria-label="Zamknij">✕</button>
-    <div class="dm-img" id="dmImg"><img id="dmImgSrc" src="" alt=""></div>
+    <div class="dm-img" id="dmImg"><img id="dmImgSrc" src="" alt=""><span id="dmLike"></span></div>
     <div class="dm-body">
       <div class="dm-top"><span class="dm-pcs" id="dmPcs"></span><span class="dm-flag" id="dmFlag"></span></div>
       <h3 id="dmName"></h3>
@@ -1326,7 +1337,7 @@ pl:{
   pay_cash:'Płatność gotówką', pay_term:'Płatność terminalem', change_ph:'Reszta z… np. 200 zł',
   f_notes:'Uwagi (opcjonalnie)', your_order:'Twoje zamówienie', total:'Razem', submit:'Zamawiam',
   or_ig:'lub napisz do nas:', cart_title:'Koszyk', cart_go:'Przejdź do zamówienia',
-  upsell:'Dodaj do zamówienia?', add_btn:'Dodaj', sp_title:'Wybierz sos', sp_skip:'Bez sosu', sp_ok:'Dodaj', sp_sub:'Do burgera <b>1 sos gratis</b>. Wybierz swój ulubiony:', sp_free:'Gratis', sp_none:'bez sosu', upsell_sos:'Dodaj sos?', sos_incl:'Sos sojowy, imbir, wasabi i pałeczki dodajemy gratis do każdego zamówienia.', cart_empty:'Koszyk jest pusty…\nDodaj coś pysznego z menu!', toast_added:'Dodano do koszyka', closed_t:'Teraz nie przyjmujemy zamówień', closed_msg:'Zamówienia online realizujemy codziennie w godzinach {a}–{b}.', closed_today:'Zapraszamy dziś od {x}!', closed_tomorrow:'Zapraszamy jutro od {x}!', closed_err:'Zamówienia przyjmujemy w godzinach {a}–{b}. Zapraszamy ponownie!', pre_t:'Zamówienie z wyprzedzeniem', pre_msg:'Kuchnia startuje o {x} — dowóz i odbiór ruszają od tej godziny. Zamówienie przyjmiemy już teraz, wybierz tylko godzinę dostawy z przedziału {x}–{y}.', pre_msg_tmr:'Kuchnia jest już zamknięta — zamówienie przyjmiemy na jutro. Wybierz tylko godzinę dostawy z przedziału {x}–{y}.', err_time_range:'Wybierz godzinę między {a} a {b} — wcześniej kuchnia jeszcze nie pracuje.', tube_add:'W tubusie +{x} zł', drink_add:'Z napojem +{x} zł', drink_with:'Napój: {d}', pd_title:'Dodaj napój', pd_sub:'Chcesz napój do tej pozycji? Dopłata <b>{x} zł</b>:', pd_none:'Bez napoju',sauce_add:'Z sosem +{x} zł',sauce_with:'Sos: {d}',ps_title:'Dodaj sos',ps_sub:'Chcesz sos do tej pozycji? Dopłata <b>{x} zł</b>:',ps_none:'Bez sosu',alg_label:'Alergeny',alg_none:'brak głównych alergenów',alg_ask:'zapytaj nas przed zamówieniem',alg_nodata:'brak danych w tabeli — zapytaj nas przed zamówieniem',alg_table:'tabela',alg_title:'Alergeny',alg_sub:'Masz alergię? Zadzwoń przed zamówieniem: <b>+48 797 254 955</b>.',foot_alg:'Alergeny',pre_btn:'Zamów na {d}',pre_strip:'<b>{n}:</b> odbiór osobisty {d}, godzina do wyboru {a}–{b}. Przyjmujemy do {u}.',pre_mode:'<b>{n}: zamówienie z odbiorem {d}</b> · min. {m} zł',pre_exit:'Wyjdź',pre_pop_t:'{n} w Sushi Shark',pre_pop_d:'Przyjmujemy zamówienia z <b>odbiorem osobistym {d}</b> — wybierz godzinę od {a} do {b}. Minimalna kwota <b>{m} zł</b>. Zamówienia przyjmujemy do {u}.',pre_later:'Później',pre_only:'Tylko odbiór osobisty — bez dostawy',pre_pick:'Godzina odbioru {d}',pre_note:'Przekreślone godziny są już zajęte.',pre_clear:'Zamówienie z odbiorem {d} składa się osobno — koszyk zostanie wyczyszczony. Kontynuować?',pre_clear_exit:'Wyjść z zamówienia na święto? Koszyk zostanie wyczyszczony.',pre_err_slot:'Wybierz godzinę odbioru.',pre_err_taken:'Ta godzina właśnie się zajęła — wybierz inną.',pre_err_closed:'Przyjmowanie zamówień z odbiorem {d} jest już zakończone.',pre_err_min:'Minimalna kwota zamówienia z odbiorem {d} to {m} zł.',pre_err_phone:'Podaj poprawny numer telefonu.',pre_err_limit:'Na ten numer są już 3 zamówienia — zadzwoń do nas: +48 797 254 955.',pre_err_net:'Nie udało się wysłać — sprawdź internet albo zadzwoń: +48 797 254 955.',pre_ok_t:'Zarezerwowane!',pre_ok_d:'Odbiór {d} o {t}. Numer zamówienia: {r}. Do zobaczenia!',pre_blocked:'Dziś nie przyjmujemy zamówień online.', pd_ok:'Dodaj', tube_short:'· w tubusie',  promo_badge:'Hit miesiąca', sale_badge:'Promocja', new_badge:'Nowość', out_badge:'Brak w sprzedaży', out_toast:'Produkt chwilowo niedostępny', dp_title:'Napoje gratis', dp_sub:'Do zestawu <b>2 napoje 0,33 l gratis</b>. Wybierz swoje:', dp_sub_d:'Napoje gratis: <b>{n} × 0,33 l</b>.', dp_sub_s:'Sosy gratis: <b>{n}</b>.', dp_sub_pick:'Wybierz swoje:', dp_drink:'Napój', dp_sauce:'Sos', ad_title:'Dodatki', ad_sub:'Chcesz coś dorzucić? Dopłata doliczy się do ceny:', ad_none:'Bez dodatków', ad_ok:'Dodaj', dp_title_s:'Sosy gratis', dp_title_g:'Gratis do zamówienia', dp_n1:'Napój 1', dp_n2:'Napój 2', dp_ok:'Dodaj',
+  upsell:'Dodaj do zamówienia?', add_btn:'Dodaj', sp_title:'Wybierz sos', sp_skip:'Bez sosu', sp_ok:'Dodaj', sp_sub:'Do burgera <b>1 sos gratis</b>. Wybierz swój ulubiony:', sp_free:'Gratis', sp_none:'bez sosu', upsell_sos:'Dodaj sos?', sos_incl:'Sos sojowy, imbir, wasabi i pałeczki dodajemy gratis do każdego zamówienia.', cart_empty:'Koszyk jest pusty…\nDodaj coś pysznego z menu!', toast_added:'Dodano do koszyka', closed_t:'Teraz nie przyjmujemy zamówień', closed_msg:'Zamówienia online realizujemy codziennie w godzinach {a}–{b}.', closed_today:'Zapraszamy dziś od {x}!', closed_tomorrow:'Zapraszamy jutro od {x}!', closed_err:'Zamówienia przyjmujemy w godzinach {a}–{b}. Zapraszamy ponownie!', pre_t:'Zamówienie z wyprzedzeniem', pre_msg:'Kuchnia startuje o {x} — dowóz i odbiór ruszają od tej godziny. Zamówienie przyjmiemy już teraz, wybierz tylko godzinę dostawy z przedziału {x}–{y}.', pre_msg_tmr:'Kuchnia jest już zamknięta — zamówienie przyjmiemy na jutro. Wybierz tylko godzinę dostawy z przedziału {x}–{y}.', err_time_range:'Wybierz godzinę między {a} a {b} — wcześniej kuchnia jeszcze nie pracuje.', tube_add:'W tubusie +{x} zł', drink_add:'Z napojem +{x} zł', drink_with:'Napój: {d}', pd_title:'Dodaj napój', pd_sub:'Chcesz napój do tej pozycji? Dopłata <b>{x} zł</b>:', pd_none:'Bez napoju',sauce_add:'Z sosem +{x} zł',sauce_with:'Sos: {d}',ps_title:'Dodaj sos',ps_sub:'Chcesz sos do tej pozycji? Dopłata <b>{x} zł</b>:',ps_none:'Bez sosu',alg_label:'Alergeny',alg_none:'brak głównych alergenów',alg_ask:'zapytaj nas przed zamówieniem',alg_nodata:'brak danych w tabeli — zapytaj nas przed zamówieniem',alg_table:'tabela',alg_title:'Alergeny',alg_sub:'Masz alergię? Zadzwoń przed zamówieniem: <b>+48 797 254 955</b>.',foot_alg:'Alergeny',like_aria:'Lubię to',pre_btn:'Zamów na {d}',pre_strip:'<b>{n}:</b> odbiór osobisty {d}, godzina do wyboru {a}–{b}. Przyjmujemy do {u}.',pre_mode:'<b>{n}: zamówienie z odbiorem {d}</b> · min. {m} zł',pre_exit:'Wyjdź',pre_pop_t:'{n} w Sushi Shark',pre_pop_d:'Przyjmujemy zamówienia z <b>odbiorem osobistym {d}</b> — wybierz godzinę od {a} do {b}. Minimalna kwota <b>{m} zł</b>. Zamówienia przyjmujemy do {u}.',pre_later:'Później',pre_only:'Tylko odbiór osobisty — bez dostawy',pre_pick:'Godzina odbioru {d}',pre_note:'Przekreślone godziny są już zajęte.',pre_clear:'Zamówienie z odbiorem {d} składa się osobno — koszyk zostanie wyczyszczony. Kontynuować?',pre_clear_exit:'Wyjść z zamówienia na święto? Koszyk zostanie wyczyszczony.',pre_err_slot:'Wybierz godzinę odbioru.',pre_err_taken:'Ta godzina właśnie się zajęła — wybierz inną.',pre_err_closed:'Przyjmowanie zamówień z odbiorem {d} jest już zakończone.',pre_err_min:'Minimalna kwota zamówienia z odbiorem {d} to {m} zł.',pre_err_phone:'Podaj poprawny numer telefonu.',pre_err_limit:'Na ten numer są już 3 zamówienia — zadzwoń do nas: +48 797 254 955.',pre_err_net:'Nie udało się wysłać — sprawdź internet albo zadzwoń: +48 797 254 955.',pre_ok_t:'Zarezerwowane!',pre_ok_d:'Odbiór {d} o {t}. Numer zamówienia: {r}. Do zobaczenia!',pre_blocked:'Dziś nie przyjmujemy zamówień online.', pd_ok:'Dodaj', tube_short:'· w tubusie',  promo_badge:'Hit miesiąca', sale_badge:'Promocja', new_badge:'Nowość', out_badge:'Brak w sprzedaży', out_toast:'Produkt chwilowo niedostępny', dp_title:'Napoje gratis', dp_sub:'Do zestawu <b>2 napoje 0,33 l gratis</b>. Wybierz swoje:', dp_sub_d:'Napoje gratis: <b>{n} × 0,33 l</b>.', dp_sub_s:'Sosy gratis: <b>{n}</b>.', dp_sub_pick:'Wybierz swoje:', dp_drink:'Napój', dp_sauce:'Sos', ad_title:'Dodatki', ad_sub:'Chcesz coś dorzucić? Dopłata doliczy się do ceny:', ad_none:'Bez dodatków', ad_ok:'Dodaj', dp_title_s:'Sosy gratis', dp_title_g:'Gratis do zamówienia', dp_n1:'Napój 1', dp_n2:'Napój 2', dp_ok:'Dodaj',
   err_cart:'Dodaj coś do koszyka!', err_min:'Minimalna kwota zamówienia to {m} zł. Dodaj jeszcze za {x} zł.', err_required:'Uzupełnij imię i telefon', err_addr:'Podaj ulicę i numer domu', err_city:'Wpisz miejscowość', c_other:'Inna miejscowość', ph_city:'Miejscowość',
   ok_stamp:'Przyjęte ✓', ok_t:'Dziękujemy!', ok_d:'Twoje zamówienie zostało przyjęte. Zadzwonimy, aby potwierdzić szczegóły.', ok_b:'Super!',
   c_tag:'Kontakt', c_title:'Wpadnij lub zamów', c_addr:'Adres', c_hours:'Godziny otwarcia', c_hours_d:'Pn–Nd', c_hours_v:'Pn–Nd: 11:00–21:00', c_phone:'Telefon',
@@ -1363,7 +1374,7 @@ ua:{
   pay_cash:'Оплата готівкою', pay_term:'Оплата через термінал', change_ph:'Решта з… напр., 200 zł',
   f_notes:'Коментар (необовʼязково)', your_order:'Твоє замовлення', total:'Разом', submit:'Замовляю',
   or_ig:'або напиши нам:', cart_title:'Кошик', cart_go:'До оформлення',
-  upsell:'Додати до замовлення?', add_btn:'Додати', sp_title:'Обери соус', sp_skip:'Без соусу', sp_ok:'Додати', sp_sub:'До бургера <b>1 соус безкоштовно</b>. Обери свій улюблений:', sp_free:'Безкоштовно', sp_none:'без соусу', upsell_sos:'Додати соус?', sos_incl:'Соєвий соус, імбир, васабі та палички додаємо безкоштовно до кожного замовлення.', cart_empty:'Кошик порожній…\nДодай щось смачненьке з меню!', toast_added:'Додано до кошика', closed_t:'Зараз замовлення не приймаємо', closed_msg:'Онлайн-замовлення приймаємо щодня з {a} до {b}.', closed_today:'Чекаємо на вас сьогодні з {x}!', closed_tomorrow:'Чекаємо на вас завтра з {x}!', closed_err:'Замовлення приймаємо з {a} до {b}. Чекаємо на вас!', pre_t:'Попереднє замовлення', pre_msg:'Кухня починає о {x} — саме з цієї години стартує доставка й самовивіз. Замовлення приймемо вже зараз, лише оберіть годину доставки в проміжку {x}–{y}.', pre_msg_tmr:'Кухня вже зачинена — замовлення приймемо на завтра. Лише оберіть годину доставки в проміжку {x}–{y}.', err_time_range:'Оберіть годину між {a} і {b} — раніше кухня ще не працює.', tube_add:'У тубусі +{x} zł', drink_add:'З напоєм +{x} zł', drink_with:'Напій: {d}', pd_title:'Додати напій', pd_sub:'Хочеш напій до цієї позиції? Доплата <b>{x} zł</b>:', pd_none:'Без напою',sauce_add:'З соусом +{x} zł',sauce_with:'Соус: {d}',ps_title:'Додати соус',ps_sub:'Хочеш соус до цієї позиції? Доплата <b>{x} zł</b>:',ps_none:'Без соусу',alg_label:'Алергени',alg_none:'без основних алергенів',alg_ask:'запитайте нас перед замовленням',alg_nodata:'немає даних у таблиці — запитайте нас перед замовленням',alg_table:'таблиця',alg_title:'Алергени',alg_sub:'Маєте алергію? Зателефонуйте перед замовленням: <b>+48 797 254 955</b>.',foot_alg:'Алергени',pre_btn:'Замовити на {n}',pre_strip:'<b>{n}:</b> самовивіз {d}, годину обираєте ви, {a}–{b}. Приймаємо до {u}.',pre_mode:'<b>Замовлення на {n}</b> · самовивіз {d} · від {m} zł',pre_exit:'Вийти',pre_pop_t:'{n} у Sushi Shark',pre_pop_d:'Приймаємо замовлення з <b>самовивозом {d}</b> — оберіть годину з {a} до {b}. Мінімальна сума <b>{m} zł</b>. Замовлення приймаємо до {u}.',pre_later:'Пізніше',pre_only:'Лише самовивіз — без доставки',pre_pick:'Година видачі {d}',pre_note:'Перекреслені години вже зайняті.',pre_clear:'Замовлення на {n} оформлюється окремо — кошик очиститься. Продовжити?',pre_clear_exit:'Вийти із замовлення на свято? Кошик очиститься.',pre_err_slot:'Оберіть годину видачі.',pre_err_taken:'Цю годину щойно зайняли — оберіть іншу.',pre_err_closed:'Прийом замовлень на {n} уже завершено.',pre_err_min:'Мінімальна сума замовлення на {n} — {m} zł.',pre_err_phone:'Вкажіть правильний номер телефону.',pre_err_limit:'На цей номер уже 3 замовлення — зателефонуйте нам: +48 797 254 955.',pre_err_net:'Не вдалося надіслати — перевірте інтернет або зателефонуйте: +48 797 254 955.',pre_ok_t:'Заброньовано!',pre_ok_d:'Видача {d} о {t}. Номер замовлення: {r}. До зустрічі!',pre_blocked:'Сьогодні онлайн-замовлення не приймаємо.', pd_ok:'Додати', tube_short:'· у тубусі',  promo_badge:'Хіт місяця', sale_badge:'Акція', new_badge:'Новинка', out_badge:'Нема в наявності', out_toast:'Товар тимчасово недоступний', dp_title:'Напої безкоштовно', dp_sub:'До сету <b>2 напої 0,33 л безкоштовно</b>. Обери свої:', dp_sub_d:'Напої безкоштовно: <b>{n} × 0,33 л</b>.', dp_sub_s:'Соуси безкоштовно: <b>{n}</b>.', dp_sub_pick:'Обери свої:', dp_drink:'Напій', dp_sauce:'Соус', ad_title:'Додатки', ad_sub:'Хочеш щось додати? Доплата піде до ціни:', ad_none:'Без додатків', ad_ok:'Додати', dp_title_s:'Соуси безкоштовно', dp_title_g:'Безкоштовно до замовлення', dp_n1:'Напій 1', dp_n2:'Напій 2', dp_ok:'Додати',
+  upsell:'Додати до замовлення?', add_btn:'Додати', sp_title:'Обери соус', sp_skip:'Без соусу', sp_ok:'Додати', sp_sub:'До бургера <b>1 соус безкоштовно</b>. Обери свій улюблений:', sp_free:'Безкоштовно', sp_none:'без соусу', upsell_sos:'Додати соус?', sos_incl:'Соєвий соус, імбир, васабі та палички додаємо безкоштовно до кожного замовлення.', cart_empty:'Кошик порожній…\nДодай щось смачненьке з меню!', toast_added:'Додано до кошика', closed_t:'Зараз замовлення не приймаємо', closed_msg:'Онлайн-замовлення приймаємо щодня з {a} до {b}.', closed_today:'Чекаємо на вас сьогодні з {x}!', closed_tomorrow:'Чекаємо на вас завтра з {x}!', closed_err:'Замовлення приймаємо з {a} до {b}. Чекаємо на вас!', pre_t:'Попереднє замовлення', pre_msg:'Кухня починає о {x} — саме з цієї години стартує доставка й самовивіз. Замовлення приймемо вже зараз, лише оберіть годину доставки в проміжку {x}–{y}.', pre_msg_tmr:'Кухня вже зачинена — замовлення приймемо на завтра. Лише оберіть годину доставки в проміжку {x}–{y}.', err_time_range:'Оберіть годину між {a} і {b} — раніше кухня ще не працює.', tube_add:'У тубусі +{x} zł', drink_add:'З напоєм +{x} zł', drink_with:'Напій: {d}', pd_title:'Додати напій', pd_sub:'Хочеш напій до цієї позиції? Доплата <b>{x} zł</b>:', pd_none:'Без напою',sauce_add:'З соусом +{x} zł',sauce_with:'Соус: {d}',ps_title:'Додати соус',ps_sub:'Хочеш соус до цієї позиції? Доплата <b>{x} zł</b>:',ps_none:'Без соусу',alg_label:'Алергени',alg_none:'без основних алергенів',alg_ask:'запитайте нас перед замовленням',alg_nodata:'немає даних у таблиці — запитайте нас перед замовленням',alg_table:'таблиця',alg_title:'Алергени',alg_sub:'Маєте алергію? Зателефонуйте перед замовленням: <b>+48 797 254 955</b>.',foot_alg:'Алергени',like_aria:'Подобається',pre_btn:'Замовити на {n}',pre_strip:'<b>{n}:</b> самовивіз {d}, годину обираєте ви, {a}–{b}. Приймаємо до {u}.',pre_mode:'<b>Замовлення на {n}</b> · самовивіз {d} · від {m} zł',pre_exit:'Вийти',pre_pop_t:'{n} у Sushi Shark',pre_pop_d:'Приймаємо замовлення з <b>самовивозом {d}</b> — оберіть годину з {a} до {b}. Мінімальна сума <b>{m} zł</b>. Замовлення приймаємо до {u}.',pre_later:'Пізніше',pre_only:'Лише самовивіз — без доставки',pre_pick:'Година видачі {d}',pre_note:'Перекреслені години вже зайняті.',pre_clear:'Замовлення на {n} оформлюється окремо — кошик очиститься. Продовжити?',pre_clear_exit:'Вийти із замовлення на свято? Кошик очиститься.',pre_err_slot:'Оберіть годину видачі.',pre_err_taken:'Цю годину щойно зайняли — оберіть іншу.',pre_err_closed:'Прийом замовлень на {n} уже завершено.',pre_err_min:'Мінімальна сума замовлення на {n} — {m} zł.',pre_err_phone:'Вкажіть правильний номер телефону.',pre_err_limit:'На цей номер уже 3 замовлення — зателефонуйте нам: +48 797 254 955.',pre_err_net:'Не вдалося надіслати — перевірте інтернет або зателефонуйте: +48 797 254 955.',pre_ok_t:'Заброньовано!',pre_ok_d:'Видача {d} о {t}. Номер замовлення: {r}. До зустрічі!',pre_blocked:'Сьогодні онлайн-замовлення не приймаємо.', pd_ok:'Додати', tube_short:'· у тубусі',  promo_badge:'Хіт місяця', sale_badge:'Акція', new_badge:'Новинка', out_badge:'Нема в наявності', out_toast:'Товар тимчасово недоступний', dp_title:'Напої безкоштовно', dp_sub:'До сету <b>2 напої 0,33 л безкоштовно</b>. Обери свої:', dp_sub_d:'Напої безкоштовно: <b>{n} × 0,33 л</b>.', dp_sub_s:'Соуси безкоштовно: <b>{n}</b>.', dp_sub_pick:'Обери свої:', dp_drink:'Напій', dp_sauce:'Соус', ad_title:'Додатки', ad_sub:'Хочеш щось додати? Доплата піде до ціни:', ad_none:'Без додатків', ad_ok:'Додати', dp_title_s:'Соуси безкоштовно', dp_title_g:'Безкоштовно до замовлення', dp_n1:'Напій 1', dp_n2:'Напій 2', dp_ok:'Додати',
   err_cart:'Додай щось до кошика!', err_min:'Мінімальна сума замовлення — {m} zł. Додай ще на {x} zł.', err_required:"Заповни ім'я та телефон", err_addr:'Вкажи вулицю і номер будинку', err_city:'Вкажи місто', c_other:'Інше місто', ph_city:'Місто',
   ok_stamp:'Прийнято ✓', ok_t:'Дякуємо!', ok_d:'Твоє замовлення прийнято. Ми зателефонуємо для підтвердження деталей.', ok_b:'Супер!',
   c_tag:'Контакти', c_title:'Завітай або замов', c_addr:'Адреса', c_hours:'Години роботи', c_hours_d:'Пн–Нд', c_hours_v:'Пн–Нд: 11:00–21:00', c_phone:'Телефон',
@@ -1401,7 +1412,7 @@ en:{
   pay_cash:'Pay in cash', pay_term:'Pay by card terminal', change_ph:'Change from… e.g. 200 zł',
   f_notes:'Notes (optional)', your_order:'Your order', total:'Total', submit:'Place order',
   or_ig:'or message us:', cart_title:'Cart', cart_go:'Go to checkout',
-  upsell:'Add to your order?', add_btn:'Add', sp_title:'Choose a sauce', sp_skip:'No sauce', sp_ok:'Add', sp_sub:'Your burger comes with <b>1 free sauce</b>. Pick your favourite:', sp_free:'Free', sp_none:'no sauce', upsell_sos:'Add a sauce?', sos_incl:'Soy sauce, ginger, wasabi and chopsticks come free with every order.', cart_empty:'Your cart is empty…\nAdd something tasty from the menu!', toast_added:'Added to cart', closed_t:'We are not taking orders right now', closed_msg:'Online orders are accepted daily from {a} to {b}.', closed_today:'Come back today from {x}!', closed_tomorrow:'Come back tomorrow from {x}!', closed_err:'We accept orders between {a} and {b}. See you soon!', pre_t:'Pre-order', pre_msg:'The kitchen opens at {x} — delivery and pickup start from that time. We will take your order now, just pick a delivery time between {x} and {y}.', pre_msg_tmr:'The kitchen is already closed — we will take your order for tomorrow. Just pick a delivery time between {x} and {y}.', err_time_range:'Pick a time between {a} and {b} — the kitchen is not working earlier.', tube_add:'In a tube +{x} zł', drink_add:'With a drink +{x} zł', drink_with:'Drink: {d}', pd_title:'Add a drink', pd_sub:'Want a drink with this item? Extra <b>{x} zł</b>:', pd_none:'No drink',sauce_add:'With a sauce +{x} zł',sauce_with:'Sauce: {d}',ps_title:'Add a sauce',ps_sub:'Want a sauce with this item? Extra <b>{x} zł</b>:',ps_none:'No sauce',alg_label:'Allergens',alg_none:'none of the main allergens',alg_ask:'ask us before ordering',alg_nodata:'no data in the table yet — ask us before ordering',alg_table:'table',alg_title:'Allergens',alg_sub:'Allergic? Call us before ordering: <b>+48 797 254 955</b>.',foot_alg:'Allergens',pre_btn:'Order for {n}',pre_strip:'<b>{n}:</b> pickup on {d}, you choose the time, {a}–{b}. Orders until {u}.',pre_mode:'<b>Order for {n}</b> · pickup on {d} · min. {m} zł',pre_exit:'Exit',pre_pop_t:'{n} at Sushi Shark',pre_pop_d:'We take orders for <b>pickup on {d}</b> — choose a time from {a} to {b}. Minimum order <b>{m} zł</b>. Orders until {u}.',pre_later:'Later',pre_only:'Pickup only — no delivery',pre_pick:'Pickup time on {d}',pre_note:'Crossed-out times are already taken.',pre_clear:'The {n} order is placed separately — your cart will be cleared. Continue?',pre_clear_exit:'Leave the holiday order? Your cart will be cleared.',pre_err_slot:'Choose a pickup time.',pre_err_taken:'This time was just taken — please choose another.',pre_err_closed:'Orders for {n} are closed.',pre_err_min:'The minimum order for {n} is {m} zł.',pre_err_phone:'Please enter a valid phone number.',pre_err_limit:'There are already 3 orders for this number — please call us: +48 797 254 955.',pre_err_net:'Could not send — check your connection or call: +48 797 254 955.',pre_ok_t:'Booked!',pre_ok_d:'Pickup on {d} at {t}. Order number: {r}. See you!',pre_blocked:'We are not taking online orders today.', pd_ok:'Add', tube_short:'· in a tube',  promo_badge:'Hit of the month', sale_badge:'Sale', new_badge:'New', out_badge:'Out of stock', out_toast:'Item currently unavailable', dp_title:'Free drinks', dp_sub:'Your set comes with <b>2 free 0.33 l drinks</b>. Pick yours:', dp_sub_d:'Free drinks: <b>{n} × 0.33 l</b>.', dp_sub_s:'Free sauces: <b>{n}</b>.', dp_sub_pick:'Pick yours:', dp_drink:'Drink', dp_sauce:'Sauce', ad_title:'Extras', ad_sub:'Want to add something? The surcharge goes on top:', ad_none:'No extras', ad_ok:'Add', dp_title_s:'Free sauces', dp_title_g:'Free with your order', dp_n1:'Drink 1', dp_n2:'Drink 2', dp_ok:'Add',
+  upsell:'Add to your order?', add_btn:'Add', sp_title:'Choose a sauce', sp_skip:'No sauce', sp_ok:'Add', sp_sub:'Your burger comes with <b>1 free sauce</b>. Pick your favourite:', sp_free:'Free', sp_none:'no sauce', upsell_sos:'Add a sauce?', sos_incl:'Soy sauce, ginger, wasabi and chopsticks come free with every order.', cart_empty:'Your cart is empty…\nAdd something tasty from the menu!', toast_added:'Added to cart', closed_t:'We are not taking orders right now', closed_msg:'Online orders are accepted daily from {a} to {b}.', closed_today:'Come back today from {x}!', closed_tomorrow:'Come back tomorrow from {x}!', closed_err:'We accept orders between {a} and {b}. See you soon!', pre_t:'Pre-order', pre_msg:'The kitchen opens at {x} — delivery and pickup start from that time. We will take your order now, just pick a delivery time between {x} and {y}.', pre_msg_tmr:'The kitchen is already closed — we will take your order for tomorrow. Just pick a delivery time between {x} and {y}.', err_time_range:'Pick a time between {a} and {b} — the kitchen is not working earlier.', tube_add:'In a tube +{x} zł', drink_add:'With a drink +{x} zł', drink_with:'Drink: {d}', pd_title:'Add a drink', pd_sub:'Want a drink with this item? Extra <b>{x} zł</b>:', pd_none:'No drink',sauce_add:'With a sauce +{x} zł',sauce_with:'Sauce: {d}',ps_title:'Add a sauce',ps_sub:'Want a sauce with this item? Extra <b>{x} zł</b>:',ps_none:'No sauce',alg_label:'Allergens',alg_none:'none of the main allergens',alg_ask:'ask us before ordering',alg_nodata:'no data in the table yet — ask us before ordering',alg_table:'table',alg_title:'Allergens',alg_sub:'Allergic? Call us before ordering: <b>+48 797 254 955</b>.',foot_alg:'Allergens',like_aria:'Like',pre_btn:'Order for {n}',pre_strip:'<b>{n}:</b> pickup on {d}, you choose the time, {a}–{b}. Orders until {u}.',pre_mode:'<b>Order for {n}</b> · pickup on {d} · min. {m} zł',pre_exit:'Exit',pre_pop_t:'{n} at Sushi Shark',pre_pop_d:'We take orders for <b>pickup on {d}</b> — choose a time from {a} to {b}. Minimum order <b>{m} zł</b>. Orders until {u}.',pre_later:'Later',pre_only:'Pickup only — no delivery',pre_pick:'Pickup time on {d}',pre_note:'Crossed-out times are already taken.',pre_clear:'The {n} order is placed separately — your cart will be cleared. Continue?',pre_clear_exit:'Leave the holiday order? Your cart will be cleared.',pre_err_slot:'Choose a pickup time.',pre_err_taken:'This time was just taken — please choose another.',pre_err_closed:'Orders for {n} are closed.',pre_err_min:'The minimum order for {n} is {m} zł.',pre_err_phone:'Please enter a valid phone number.',pre_err_limit:'There are already 3 orders for this number — please call us: +48 797 254 955.',pre_err_net:'Could not send — check your connection or call: +48 797 254 955.',pre_ok_t:'Booked!',pre_ok_d:'Pickup on {d} at {t}. Order number: {r}. See you!',pre_blocked:'We are not taking online orders today.', pd_ok:'Add', tube_short:'· in a tube',  promo_badge:'Hit of the month', sale_badge:'Sale', new_badge:'New', out_badge:'Out of stock', out_toast:'Item currently unavailable', dp_title:'Free drinks', dp_sub:'Your set comes with <b>2 free 0.33 l drinks</b>. Pick yours:', dp_sub_d:'Free drinks: <b>{n} × 0.33 l</b>.', dp_sub_s:'Free sauces: <b>{n}</b>.', dp_sub_pick:'Pick yours:', dp_drink:'Drink', dp_sauce:'Sauce', ad_title:'Extras', ad_sub:'Want to add something? The surcharge goes on top:', ad_none:'No extras', ad_ok:'Add', dp_title_s:'Free sauces', dp_title_g:'Free with your order', dp_n1:'Drink 1', dp_n2:'Drink 2', dp_ok:'Add',
   err_cart:'Add something to the cart!', err_min:'Minimum order is {m} zł. Add {x} zł more.', err_required:'Fill in your name and phone', err_addr:'Enter street and house number', err_city:'Enter the town', c_other:'Other town', ph_city:'Town',
   ok_stamp:'Accepted ✓', ok_t:'Thank you!', ok_d:'Your order has been received. We will call you to confirm the details.', ok_b:'Great!',
   c_tag:'Contact', c_title:'Visit us or order', c_addr:'Address', c_hours:'Opening hours', c_hours_d:'Mon–Sun', c_hours_v:'Mon–Sun: 11:00–21:00', c_phone:'Phone',
@@ -1844,6 +1855,7 @@ function openDish(id){
   $('#dmName').textContent = p.name;
   $('#dmDesc').textContent = p[lang];
   $('#dmAlg').innerHTML = algLine(p);
+  $('#dmLike').innerHTML = likeBtn(p);
   $('#dmTube').innerHTML =
       (canTube(p) ? tubeChip('dm-tube', !!tubePick[p.id], `toggleTubePick('${p.id}',this,event)`) : '');
   $('#dmPrice').innerHTML = priceInner(p, pickExtra(p), false);
@@ -1922,6 +1934,71 @@ function hwClose(){
   try{ localStorage.setItem('hw2026', '1'); }catch(e){}
 }
 window.addEventListener('load', function(){ setTimeout(hwOpen, 800); });
+
+/* ---------- lajki ----------
+   Serduszko na każdej pozycji z bazy (p.dbId). Liczba z tabeli item_likes,
+   zmiana przez like_item (jeden głos na przeglądarkę, można cofnąć).
+   Te same pozycje w zwykłym menu i w przedsprzedaży — więc i te same lajki. */
+const LIKES = {};
+function likeStore(){ try{ return JSON.parse(localStorage.getItem('ss_liked') || '[]'); }catch(e){ return []; } }
+let LIKED = likeStore();
+function isLiked(id){ return LIKED.indexOf(id) !== -1; }
+function setLiked(id, on){
+  LIKED = LIKED.filter(function(x){ return x !== id; });
+  if(on) LIKED.push(id);
+  try{ localStorage.setItem('ss_liked', JSON.stringify(LIKED)); }catch(e){}
+}
+let LIKE_TOKEN_MEM = '';
+function likeToken(){
+  try{
+    let t = localStorage.getItem('ss_like_token');
+    if(!t){
+      t = Array.from(crypto.getRandomValues(new Uint8Array(16))).map(function(b){ return b.toString(16).padStart(2, '0'); }).join('');
+      localStorage.setItem('ss_like_token', t);
+    }
+    return t;
+  }catch(e){
+    if(!LIKE_TOKEN_MEM) LIKE_TOKEN_MEM = Math.random().toString(36).slice(2) + Date.now().toString(36);
+    return LIKE_TOKEN_MEM;
+  }
+}
+function likeInner(id){
+  const n = LIKES[id] || 0;
+  return `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.3s-7.4-4.5-9.2-9.1C1.5 8 3.5 4.6 7 4.6c2 0 3.6 1.1 5 2.9 1.4-1.8 3-2.9 5-2.9 3.5 0 5.5 3.4 4.2 6.6-1.8 4.6-9.2 9.1-9.2 9.1z"/></svg>${n > 0 ? `<b>${n}</b>` : ''}`;
+}
+function likeBtn(p, cls){
+  if(!p || !p.dbId) return '';
+  const id = p.dbId, on = isLiked(id);
+  return `<button type="button" class="like-btn${cls ? ' ' + cls : ''}${on ? ' on' : ''}" data-like="${id}" aria-pressed="${on}" aria-label="${T[lang].like_aria}" onclick="event.stopPropagation();toggleLike(${id})">${likeInner(id)}</button>`;
+}
+function refreshLike(id){
+  document.querySelectorAll('[data-like="' + id + '"]').forEach(function(b){
+    b.classList.toggle('on', isLiked(id));
+    b.setAttribute('aria-pressed', isLiked(id));
+    b.innerHTML = likeInner(id);
+  });
+}
+const likeBusy = {};
+function toggleLike(id){
+  if(likeBusy[id] || !window.SS_DB) return;
+  const on = !isLiked(id);
+  setLiked(id, on);
+  LIKES[id] = Math.max(0, (LIKES[id] || 0) + (on ? 1 : -1));
+  refreshLike(id);
+  likeBusy[id] = true;
+  fetch(SS_DB.url + '/rpc/like_item', {
+    method: 'POST', headers: { apikey: SS_DB.key, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ p_item: id, p_token: likeToken(), p_on: on })
+  }).then(function(r){ return r.ok ? r.json() : Promise.reject(); })
+    .then(function(n){ likeBusy[id] = false; if(typeof n === 'number'){ LIKES[id] = n; refreshLike(id); } })
+    .catch(function(){
+      /* nie wyszło — cofamy, żeby liczba nie kłamała */
+      likeBusy[id] = false;
+      setLiked(id, !on);
+      LIKES[id] = Math.max(0, (LIKES[id] || 0) + (on ? -1 : 1));
+      refreshLike(id);
+    });
+}
 
 /* ---------- przedsprzedaż na święto (np. Sylwester 31.12) ----------
    Ustawienia z panelu (karta «preset», zakładka «Передзамовлення»).
@@ -2214,6 +2291,7 @@ function renderMenu(){
           <h3>${p.name}${p.spicy?`<span class="sfl">${'🌶'.repeat(p.spicy)}</span>`:''}</h3>
           <p>${p[lang]}</p>
         </div>
+        ${likeBtn(p, 'inline')}
         <span class="sauce-price">${p.price}<small>zł</small></span>
         <button class="sauce-add" onclick="addToCart('${p.id}', this)" aria-label="+">${plus}</button>
       </div>`).join('');
@@ -2228,6 +2306,7 @@ function renderMenu(){
         ${p.out?`<span class="out-ribbon"><span>${T[lang].out_badge}</span></span>`:''}
         ${flags(p)}
         <span class="dish-pcs">${p.vol ? p.vol : p.pcs + ' ' + T[lang].pcs}</span>
+        ${likeBtn(p)}
       </div>
       <div class="dish-body">
         <h3>${p.name}</h3>
@@ -3060,6 +3139,15 @@ applyOnsiteMode();
   var SITE_ID = 3; /* SUSHI SHARK у базі платформи */
   window.SS_DB = { url: DB_URL, key: DB_KEY, site: SITE_ID };  /* для przedsprzedaży (rezerwacja godziny) */
 
+  /* lajki: liczby dla wszystkich pozycji jednym zapytaniem */
+  fetch(DB_URL + '/item_likes?site_id=eq.' + SITE_ID + '&select=item_id,n', { headers: { apikey: DB_KEY } })
+    .then(function(r){ return r.ok ? r.json() : []; })
+    .then(function(rows){
+      (rows || []).forEach(function(r){ LIKES[r.item_id] = r.n; });
+      Object.keys(LIKES).forEach(function(id){ refreshLike(Number(id)); });
+    })
+    .catch(function(){ /* bez liczb — same serduszka */ });
+
   /* прозорий піксель — щоб нова позиція без фото не ламала верстку */
   IMG.__blank = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 
@@ -3163,6 +3251,7 @@ applyOnsiteMode();
 
           var it = {
             id: x.img || ('db' + p.id),   /* стабільний код позиції (кошик, вікно страви) */
+            dbId: p.id,                   /* номер у базі — для лайків */
             img: imgKey,
             name: p.title,
             /* bez działu — tylko w zakładce «Wszystko», a nie po cichu w «Rolki» */
