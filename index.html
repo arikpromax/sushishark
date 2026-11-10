@@ -327,6 +327,12 @@ header.scrolled{border-bottom:1px solid rgba(242,236,223,.14);padding:10px 0}
 .like-btn.on{color:var(--red)}
 .like-btn.on svg{fill:var(--red);stroke:var(--red);animation:lkPop .32s ease-out}
 .like-btn.inline{position:static;flex:none}
+/* w wierszu z ceną: bez tła, zaraz za ceną, «+» zostaje po prawej */
+.like-btn.flat{position:static;flex:none;margin:0 auto 0 4px;background:none;border:none;padding:6px 6px;color:var(--muted);font-size:.84rem}
+.like-btn.flat svg{width:19px;height:19px}
+.like-btn.flat.on{color:var(--red)}
+#dmLike{margin-right:auto}
+#dmLike .like-btn.flat{margin:0}
 @keyframes lkPop{0%{transform:scale(.6)}60%{transform:scale(1.25)}100%{transform:scale(1)}}
 @media (prefers-reduced-motion:reduce){.like-btn.on svg{animation:none}}
 .dish-body{padding:14px 15px 15px;display:flex;flex-direction:column;gap:5px;flex:1}
@@ -1163,7 +1169,7 @@ footer{background:#0E0F12;color:var(--ink);border-top:var(--bd);padding:46px 0 3
 <div class="dm-veil" id="dmVeil" onclick="if(event.target===this)closeDish()">
   <div class="dm">
     <button class="dm-close" onclick="closeDish()" aria-label="Zamknij">✕</button>
-    <div class="dm-img" id="dmImg"><img id="dmImgSrc" src="" alt=""><span id="dmLike"></span></div>
+    <div class="dm-img" id="dmImg"><img id="dmImgSrc" src="" alt=""></div>
     <div class="dm-body">
       <div class="dm-top"><span class="dm-pcs" id="dmPcs"></span><span class="dm-flag" id="dmFlag"></span></div>
       <h3 id="dmName"></h3>
@@ -1172,6 +1178,7 @@ footer{background:#0E0F12;color:var(--ink);border-top:var(--bd);padding:46px 0 3
       <div id="dmTube"></div>
       <div class="dm-row">
         <span class="dm-price"><span id="dmPrice"></span><small>zł</small></span>
+        <span id="dmLike"></span>
         <button class="dm-add" id="dmAdd" onclick="addFromModal()"></button>
       </div>
     </div>
@@ -1855,7 +1862,7 @@ function openDish(id){
   $('#dmName').textContent = p.name;
   $('#dmDesc').textContent = p[lang];
   $('#dmAlg').innerHTML = algLine(p);
-  $('#dmLike').innerHTML = likeBtn(p);
+  $('#dmLike').innerHTML = likeBtn(p, 'flat');
   $('#dmTube').innerHTML =
       (canTube(p) ? tubeChip('dm-tube', !!tubePick[p.id], `toggleTubePick('${p.id}',this,event)`) : '');
   $('#dmPrice').innerHTML = priceInner(p, pickExtra(p), false);
@@ -2306,7 +2313,6 @@ function renderMenu(){
         ${p.out?`<span class="out-ribbon"><span>${T[lang].out_badge}</span></span>`:''}
         ${flags(p)}
         <span class="dish-pcs">${p.vol ? p.vol : p.pcs + ' ' + T[lang].pcs}</span>
-        ${likeBtn(p)}
       </div>
       <div class="dish-body">
         <h3>${p.name}</h3>
@@ -2315,6 +2321,7 @@ function renderMenu(){
         ${canTube(p) ? tubeChip('dish-tube', !!tubePick[p.id], `toggleTubePick('${p.id}',this,event)`) : ''}
         <div class="dish-row">
           <span class="price${salePrice(p)?" on-sale":""}">${priceInner(p, pickExtra(p), true)}</span>
+          ${likeBtn(p, 'flat')}
           <button class="add-btn" onclick="event.stopPropagation();addToCart('${p.id}', this)" aria-label="Dodaj"${(p.out || orderBlocked())?' disabled':''}><i class="ic"><svg class="fi" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></i></button>
         </div>
       </div>
