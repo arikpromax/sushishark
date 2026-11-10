@@ -2712,9 +2712,9 @@ function cartCount(){ return Object.values(cart).reduce((a,b)=>a+b,0); }
 function upsellHtml(){
   if(cartCount() === 0) return '';
   const plus = '<i class="ic"><svg class="fi" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></i>';
-  /* w przedsprzedaży proponujemy tylko to, co można zamówić na święto (galeczka «Свято») */
-  const drinks = PRODUCTS.filter(p => p.cat === 'drinks' && isVisibleNow(p) && (!PREMODE || p.pre));
-  const sauces = PRODUCTS.filter(p => p.cat === 'sosy' && isVisibleNow(p) && (!PREMODE || p.pre));
+  /* tylko to, co jest dostępne; w przedsprzedaży — tylko z galeczką «Свято» */
+  const drinks = PRODUCTS.filter(p => p.cat === 'drinks' && isVisibleNow(p) && !p.out && (!PREMODE || p.pre));
+  const sauces = PRODUCTS.filter(p => p.cat === 'sosy' && isVisibleNow(p) && !p.out && (!PREMODE || p.pre));
   let out = '';
   // напої (картки з фото)
   if(drinks.length){
